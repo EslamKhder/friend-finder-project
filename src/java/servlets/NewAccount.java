@@ -1,7 +1,6 @@
 package servlets;
 
-
-import Controller.Control_DB;
+import DataBaseFiles.ServicesImplementation.UserServices;
 import Model.User;
 import java.io.IOException;
 import java.sql.Connection;
@@ -32,9 +31,9 @@ public class NewAccount extends HttpServlet {
         user.setPassword(password);
         user.setJob(job);
         user.setDistance(distance);
-        Control_DB control = new Control_DB();
-        control.setConnecion((Connection) getServletContext().getAttribute("Connect"));
-        if (control.add(user) == 1) {
+        UserServices userservices = new UserServices();
+        userservices.setConnection((Connection) getServletContext().getAttribute("Connect"));
+        if (userservices.add(user) == 1) {
             request.getSession().setAttribute("user", user);
             response.sendRedirect("View/friend-finder/newsfeed.jsp");
             //request.getRequestDispatcher("View/friend-finder/New_logIn.html").include(request, response);

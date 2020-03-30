@@ -1,5 +1,6 @@
 package servlets;
-import Controller.Control_DB;
+
+import DataBaseFiles.ServicesImplementation.LikeServices;
 import Model.Post;
 import Model.User;
 import java.io.IOException;
@@ -21,12 +22,12 @@ public class addLike extends HttpServlet {
         Post post = new Post();
         post.setIdpost(Integer.parseInt(idpost));
         post.setIduser(user.getId());
-        Control_DB control_db = new Control_DB();
-        control_db.setConnecion(connection);
-        if (control_db.checkLike(post) == 1) {
-            control_db.removeLike(user, post);
+        LikeServices likeservices = new LikeServices();
+        likeservices.setConnection(connection);
+        if (likeservices.checkLike(post) == 1) {
+            likeservices.removeLike(user, post);
         } else {
-            control_db.addLike(user, post);
+            likeservices.addLike(user, post);
         }
         response.sendRedirect("View/friend-finder/newsfeed.jsp");
     }

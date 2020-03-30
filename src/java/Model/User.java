@@ -5,8 +5,13 @@ package Model;
  */
 // Model of User (Infromation)
 public class User {
-    private int id, distance;
-    private String name, email, password, job;
+
+    private int id;
+    private int distance;
+    private String name;
+    private String email;
+    private String password;
+    private String job;
 
     public int getId() {
         return id;

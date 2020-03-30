@@ -1,6 +1,6 @@
 package servlets;
 
-import Controller.Control_DB;
+import Controller.DatabaseControl;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -14,7 +14,7 @@ public class ListenerConnection implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        Control_DB control_db = new Control_DB();
+        DatabaseControl control_db = new DatabaseControl();
         sce.getServletContext().setAttribute("Connect", control_db.connect());
     }
 

@@ -1,12 +1,6 @@
 package servlets;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-import Controller.Control_DB;
+import DataBaseFiles.ServicesImplementation.PostServices;
 import Model.Post;
 import Model.User;
 import java.io.IOException;
@@ -28,16 +22,16 @@ public class SharePost extends HttpServlet {
             throws ServletException, IOException {
         try {
             String text = request.getParameter("texts"),
-                   image = request.getParameter("image");
+                    image = request.getParameter("image");
             User user = (User) request.getSession().getAttribute("user");
             Connection connect = (Connection) getServletContext().getAttribute("Connect");
-            Control_DB control_db = new Control_DB();
-            control_db.setConnecion(connect);
+            PostServices postservices = new PostServices();
+            postservices.setConnection(connect);
             Post post = new Post();
             post.setIduser(user.getId());
             post.setText(text);
             post.setImage(image);
-            if (control_db.sharePost(post) == 1) {
+            if (postservices.sharePost(post) == 1) {
                 response.sendRedirect("View/friend-finder/newsfeed.jsp");
             }
         } catch (IOException e) {

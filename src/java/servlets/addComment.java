@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
-import Controller.Control_DB;
+import DataBaseFiles.ServicesImplementation.CommentServices;
 import Model.Post;
 import Model.User;
 import java.io.IOException;
@@ -20,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Eng Eslam khder
  */
 public class addComment extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -30,9 +26,9 @@ public class addComment extends HttpServlet {
         Connection connection = (Connection) getServletContext().getAttribute("Connect");
         Post post = new Post();
         post.setIdpost(Integer.parseInt(idpost));
-        Control_DB control_db = new Control_DB();
-        control_db.setConnecion(connection);
-        control_db.addComment(user, post,comment);
+        CommentServices commentservices = new CommentServices();
+        commentservices.setConnection(connection);
+        commentservices.addComment(user, post, comment);
         response.sendRedirect("View/friend-finder/newsfeed.jsp");
     }
 }

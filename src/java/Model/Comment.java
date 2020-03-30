@@ -5,7 +5,9 @@ package Model;
  * @author Eng Eslam khder
  */
 public class Comment {
-    private int iduser, idpost;
+
+    private int iduser;
+    private int idpost;
     private String comment;
 
     public int getIduser() {

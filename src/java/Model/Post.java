@@ -1,15 +1,21 @@
 package Model;
+
 /**
  *
  * @author Eng Eslam khder
  */
 // Model of Post of User
 public class Post {
-    private int iduser, idpost;
-    private String Text, image;
+
+    private int iduser;
+    private int idpost;
+    private String Text;
+    private String image;
+
     public int getIduser() {
         return iduser;
     }
+
     public void setIduser(int iduser) {
         this.iduser = iduser;
     }
@@ -37,5 +43,5 @@ public class Post {
     public void setImage(String image) {
         this.image = image;
     }
-    
+
 }
