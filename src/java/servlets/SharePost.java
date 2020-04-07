@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author Eng Eslam khder
  */
 public class SharePost extends HttpServlet {
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

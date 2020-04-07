@@ -29,7 +29,7 @@ public class FilterJspPage implements Filter {
         if (user == null) {
             res.sendRedirect("Log_In.html");
         } else {
-            res.sendRedirect("newsfeed.jsp");
+            chain.doFilter(request, response);
         }
     }
 }

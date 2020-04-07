@@ -1,43 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <filter>
-        <filter-name>FilterPageUser</filter-name>
-        <filter-class>servlets.FilterPageUser</filter-class>
-    </filter>
-    <filter>
         <filter-name>FilterJspPage</filter-name>
         <filter-class>servlets.FilterJspPage</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>FilterJspPage</filter-name>
-        <servlet-name>newsfeed</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>FilterPageUser</filter-name>
-        <servlet-name>NewAccount</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>FilterPageUser</filter-name>
-        <servlet-name>logIn</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>FilterPageUser</filter-name>
-        <servlet-name>SharePost</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>FilterPageUser</filter-name>
-        <servlet-name>addLike</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>FilterPageUser</filter-name>
-        <servlet-name>addComment</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>FilterPageUser</filter-name>
-        <servlet-name>addfriend</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>FilterPageUser</filter-name>
         <servlet-name>newsfeed</servlet-name>
     </filter-mapping>
     <listener>

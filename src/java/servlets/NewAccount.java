@@ -29,25 +29,23 @@ public class NewAccount extends HttpServlet {
                 JOptionPane.showMessageDialog(null, "You must fill all Flied", "invalid",
                         JOptionPane.ERROR_MESSAGE);
                 response.sendRedirect("View/friend-finder/New_logIn.html");
-            }
-            distance = Integer.parseInt(request.getParameter("distance").trim());
-//                if(job.contains){
-//                    JOptionPane.showMessageDialog(null, "Job must include only Charcter", "invalid",
-//                        JOptionPane.ERROR_MESSAGE);
-//                }
-            User user = new User();
-            user.setName(name);
-            user.setEmail(email);
-            user.setPassword(password);
-            user.setJob(job);
-            user.setDistance(distance);
-            UserServices userservices = new UserServices();
-            userservices.setConnection((Connection) getServletContext().getAttribute("Connect"));
-            if (userservices.add(user) == 1) {
-                request.getSession().setAttribute("user", user);
-                response.sendRedirect("View/friend-finder/newsfeed.jsp");
             } else {
-                response.sendRedirect("View/friend-finder/New_logIn.html");
+                
+                distance = Integer.parseInt(request.getParameter("distance").trim());
+                User user = new User();
+                user.setName(name);
+                user.setEmail(email);
+                user.setPassword(password);
+                user.setJob(job);
+                user.setDistance(distance);
+                UserServices userservices = new UserServices();
+                userservices.setConnection((Connection) getServletContext().getAttribute("Connect"));
+                if (userservices.add(user) == 1) {
+                    request.getSession().setAttribute("user", user);
+                    response.sendRedirect("View/friend-finder/newsfeed.jsp");
+                } else {
+                    response.sendRedirect("View/friend-finder/New_logIn.html");
+                }
             }
 
         } catch (Exception e) {
