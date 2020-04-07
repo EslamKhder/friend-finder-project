@@ -3,11 +3,15 @@ package org.apache.jsp.View.friend_002dfinder;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import Controller.RelationControl;
+import Controller.LikeControl;
+import Controller.CommentControl;
+import Controller.UserControl;
+import Controller.PostControl;
 import Model.Comment;
 import java.util.Collections;
 import javax.swing.JOptionPane;
 import Model.User;
-import Controller.Control_DB;
 import java.util.ArrayList;
 import java.sql.Connection;
 import Model.Post;
@@ -68,6 +72,10 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
       out.write("\n");
       out.write("\n");
       out.write("\n");
@@ -266,11 +274,15 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        ================================================= -->\n");
       out.write("                        ");
 
+                            // AraayList of class (POST)
                             ArrayList<Post> posts = new ArrayList();
-                            
+                            // AraayList of class (Comment)
                             ArrayList<Comment> comments = new ArrayList();
+                            // AraayList of class (User)
+                            ArrayList<User> friends = new ArrayList();
                         
       out.write("\n");
+      out.write("                        <!-- Object of class User get from session Scope-->\n");
       out.write("                        ");
       Model.User user = null;
       synchronized (session) {
@@ -281,17 +293,22 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
         }
       }
       out.write("\n");
-      out.write("\n");
+      out.write("                        <!-- scriptlet to write code java ->\n");
       out.write("                        ");
-                            
+
+                            // Connection of Database
                             Connection connect = (Connection) application.getAttribute("Connect");
-                            Control_DB control_db = new Control_DB();
-                            control_db.setConnecion(connect);
-                            posts = control_db.getPosts();
+                            // Object of class (Control_DB)
+                            PostControl postcontrol = new PostControl();
+                            // Set connection Of Database
+                            postcontrol.setConnection(connect);
+                            // get All Posts of DataBase
+                            posts = postcontrol.getPosts();
+                            // Set ArrayList Posts in Attribute (POSTS) to use it in foreach (Taglib)
                             pageContext.setAttribute("POSTS", posts);
                         
       out.write("\n");
-      out.write("                        <!-- Foreach to Display All Post (JSTL TAGLB) -->\n");
+      out.write("                        <!-- Foreach to Display All Post (TAGLIB) -->\n");
       out.write("                        ");
       //  c:forEach
       org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_0 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_var_items.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
@@ -320,7 +337,7 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
             out.write("                                    <img src=\"images/users/user-5.jpg\" alt=\"user\" class=\"profile-photo-md pull-left\" />\n");
             out.write("                                    <div class=\"post-detail\">\n");
             out.write("                                        <div class=\"user-info\">\n");
-            out.write("                                            <!-- Create Object of class User in Package (Standred Action) -->\n");
+            out.write("                                            <!-- Create Object of class User That Exist in Package Model (Standred Action) -->\n");
             out.write("                                            ");
             Model.User Userid = null;
             synchronized (_jspx_page_context) {
@@ -329,6 +346,7 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
                 Userid = new Model.User();
                 _jspx_page_context.setAttribute("Userid", Userid, PageContext.PAGE_SCOPE);
                 out.write("\n");
+                out.write("                                                <!-- Set value of  Property id -->\n");
                 out.write("                                                ");
                 org.apache.jasper.runtime.JspRuntimeLibrary.handleSetPropertyExpression(_jspx_page_context.findAttribute("Userid"), "id", "${post.getIduser()}", _jspx_page_context, null);
                 out.write("\n");
@@ -336,6 +354,7 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
               }
             }
             out.write("\n");
+            out.write("                                            <!-- Create Object of Class Post That Exist in Package Model (Standred Action) -->\n");
             out.write("                                            ");
             Model.Post Postid = null;
             synchronized (_jspx_page_context) {
@@ -344,6 +363,7 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
                 Postid = new Model.Post();
                 _jspx_page_context.setAttribute("Postid", Postid, PageContext.PAGE_SCOPE);
                 out.write("\n");
+                out.write("                                                <!-- Set value of  Property idpost -->\n");
                 out.write("                                                ");
                 org.apache.jasper.runtime.JspRuntimeLibrary.handleSetPropertyExpression(_jspx_page_context.findAttribute("Postid"), "idpost", "${post.getIdpost()}", _jspx_page_context, null);
                 out.write("\n");
@@ -351,6 +371,7 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
               }
             }
             out.write("\n");
+            out.write("                                            <!-- Create Object of Class Comment That Exist in Package Model (Standred Action) -->\n");
             out.write("                                            ");
             Model.Comment comment = null;
             synchronized (_jspx_page_context) {
@@ -359,9 +380,11 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
                 comment = new Model.Comment();
                 _jspx_page_context.setAttribute("comment", comment, PageContext.PAGE_SCOPE);
                 out.write("\n");
+                out.write("                                                <!-- Set value of  Property iduser -->\n");
                 out.write("                                                ");
                 org.apache.jasper.runtime.JspRuntimeLibrary.handleSetPropertyExpression(_jspx_page_context.findAttribute("comment"), "iduser", "${post.getIduser()}", _jspx_page_context, null);
                 out.write("\n");
+                out.write("                                                <!-- Set value of  Property idpost -->\n");
                 out.write("                                                ");
                 org.apache.jasper.runtime.JspRuntimeLibrary.handleSetPropertyExpression(_jspx_page_context.findAttribute("comment"), "idpost", "${post.getIdpost()}", _jspx_page_context, null);
                 out.write("\n");
@@ -369,19 +392,25 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
               }
             }
             out.write("\n");
+            out.write("                                            <!-- scriptlet to write code java -->\n");
             out.write("                                            ");
 
-                                                Userid = control_db.getUserName(Userid);
-                                                JOptionPane.showMessageDialog(null, Postid.getIdpost());
-                                                Postid.setIdpost(5);
-                                                comments = control_db.getComments(Postid);
+                                                UserControl usercontrol = new UserControl();
+                                                usercontrol.setConnection(connect);
+                                                // get UserName
+                                                Userid = usercontrol.getUserName(Userid);
+                                                CommentControl commentcontrol = new CommentControl();
+                                                commentcontrol.setConnection(connect);
+                                                // get comments of user
+                                                comments = commentcontrol.getComments(Postid);
+                                                // Set ArrayList comments in Attribute (COMMENTS) to use it in foreach (Taglib)
                                                 pageContext.setAttribute("COMMENTS", comments);
-                                                for(int i = 0; i< comments.size(); i++){
-                                                    JOptionPane.showMessageDialog(null, comments.get(i).getComment());
-                                                }
+                                                LikeControl likecontrol = new LikeControl();
+                                                likecontrol.setConnection(connect);
                                             
             out.write("\n");
             out.write("                                            <h5><a href=\"timeline.html\" class=\"profile-link\">\n");
+            out.write("                                                    <!-- Display user Name-->\n");
             out.write("                                                    ");
             out.print( Userid.getName());
             out.write("\n");
@@ -392,7 +421,7 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
             out.write("                                            <a href=\"../../addLike?id=");
             out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${post.getIdpost()}", java.lang.String.class, (PageContext)_jspx_page_context, null));
             out.write("\" class=\"btn text-green\"><i class=\"icon ion-thumbsup\"></i> ");
-            out.print(control_db.numberLikes(Postid));
+            out.print(likecontrol.numberLikes(Postid));
             out.write("</a>\n");
             out.write("                                        </div>\n");
             out.write("                                        <div class=\"line-divider\"></div>\n");
@@ -407,9 +436,10 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
             if (_jspx_meth_c_if_1((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
               return;
             out.write("  \n");
-            out.write("                                                \n");
+            out.write("\n");
             out.write("                                        </div>\n");
             out.write("                                        <div class=\"line-divider\"></div>\n");
+            out.write("                                        <!-- Foreach to Display All COMMENTS of Post (TAGLIB) -->\n");
             out.write("                                        ");
             //  c:forEach
             org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_1 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_var_items.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
@@ -423,9 +453,7 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
               if (_jspx_eval_c_forEach_1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
                 do {
                   out.write("\n");
-                  out.write("                                            ");
-                  out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${com.getIduser()}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-                  out.write("\n");
+                  out.write("                                            <!-- Create Object of class User That Exist in Package Model (Standred Action) -->\n");
                   out.write("                                            ");
                   Model.User usercomment = null;
                   synchronized (_jspx_page_context) {
@@ -434,6 +462,7 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
                       usercomment = new Model.User();
                       _jspx_page_context.setAttribute("usercomment", usercomment, PageContext.PAGE_SCOPE);
                       out.write("\n");
+                      out.write("                                                <!-- Set value of  Property id -->\n");
                       out.write("                                                ");
                       org.apache.jasper.runtime.JspRuntimeLibrary.handleSetPropertyExpression(_jspx_page_context.findAttribute("usercomment"), "id", "${com.getIduser()}", _jspx_page_context, null);
                       out.write("\n");
@@ -441,10 +470,10 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
                     }
                   }
                   out.write("\n");
-                  out.write("                                            \n");
+                  out.write("                                            <!-- scriptlet to write code java -->\n");
                   out.write("                                            ");
 
-                                                usercomment = control_db.getUserName(usercomment);
+                                                usercomment = usercontrol.getUserName(usercomment);
                                             
                   out.write("\n");
                   out.write("                                            <div class=\"post-comment\">\n");
@@ -452,11 +481,13 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
                   out.write("                                                <p><a href=\"timeline.html\" class=\"profile-link\">");
                   out.print(usercomment.getName());
                   out.write(" </a><i class=\"em em-laughing\"></i>\n");
+                  out.write("                                                    <!-- Display Comment of Post-->\n");
                   out.write("                                                    ");
                   out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${com.getComment()}", java.lang.String.class, (PageContext)_jspx_page_context, null));
                   out.write("\n");
                   out.write("                                                </p>\n");
                   out.write("                                            </div>\n");
+                  out.write("                                            <!--Remove Objects (JSTL TAGLB) -->   \n");
                   out.write("                                            ");
                   if (_jspx_meth_c_remove_0((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_1, _jspx_page_context, _jspx_push_body_count_c_forEach_1))
                     return;
@@ -492,7 +523,8 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
             out.write("                                    </div>\n");
             out.write("                                </div>\n");
             out.write("                            </div>\n");
-            out.write("                            <!-- Remove Objects (JSTL TAGLB) -->\n");
+            out.write("                            <!-- Remove Objects (JSTL TAGLB) \n");
+            out.write("                            ========================================================-->\n");
             out.write("                            ");
             if (_jspx_meth_c_remove_1((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
               return;
@@ -523,48 +555,23 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
         _jspx_tagPool_c_forEach_var_items.reuse(_jspx_th_c_forEach_0);
       }
       out.write("\n");
+      out.write("\n");
       out.write("                        <!-- Newsfeed Common Side Bar Right\n");
       out.write("                        ================================================= -->\n");
-      out.write("                        <div class=\"col-md-2 static\">\n");
-      out.write("                            <div class=\"suggestions\" id=\"sticky-sidebar\">\n");
-      out.write("                                <h4 class=\"grey\">Who to Follow</h4>\n");
-      out.write("                                <div class=\"follow-user\">\n");
-      out.write("                                    <img src=\"images/users/user-11.jpg\" alt=\"\" class=\"profile-photo-sm pull-left\" />\n");
-      out.write("                                    <div>\n");
-      out.write("                                        <h5><a href=\"timeline.html\">Diana Amber</a></h5>\n");
-      out.write("                                        <a href=\"#\" class=\"text-green\">Add friend</a>\n");
-      out.write("                                    </div>\n");
-      out.write("                                </div>\n");
-      out.write("                                <div class=\"follow-user\">\n");
-      out.write("                                    <img src=\"images/users/user-12.jpg\" alt=\"\" class=\"profile-photo-sm pull-left\" />\n");
-      out.write("                                    <div>\n");
-      out.write("                                        <h5><a href=\"timeline.html\">Cris Haris</a></h5>\n");
-      out.write("                                        <a href=\"#\" class=\"text-green\">Add friend</a>\n");
-      out.write("                                    </div>\n");
-      out.write("                                </div>\n");
-      out.write("                                <div class=\"follow-user\">\n");
-      out.write("                                    <img src=\"images/users/user-13.jpg\" alt=\"\" class=\"profile-photo-sm pull-left\" />\n");
-      out.write("                                    <div>\n");
-      out.write("                                        <h5><a href=\"timeline.html\">Brian Walton</a></h5>\n");
-      out.write("                                        <a href=\"#\" class=\"text-green\">Add friend</a>\n");
-      out.write("                                    </div>\n");
-      out.write("                                </div>\n");
-      out.write("                                <div class=\"follow-user\">\n");
-      out.write("                                    <img src=\"images/users/user-14.jpg\" alt=\"\" class=\"profile-photo-sm pull-left\" />\n");
-      out.write("                                    <div>\n");
-      out.write("                                        <h5><a href=\"timeline.html\">Olivia Steward</a></h5>\n");
-      out.write("                                        <a href=\"#\" class=\"text-green\">Add friend</a>\n");
-      out.write("                                    </div>\n");
-      out.write("                                </div>\n");
-      out.write("                                <div class=\"follow-user\">\n");
-      out.write("                                    <img src=\"images/users/user-15.jpg\" alt=\"\" class=\"profile-photo-sm pull-left\" />\n");
-      out.write("                                    <div>\n");
-      out.write("                                        <h5><a href=\"timeline.html\">Sophia Page</a></h5>\n");
-      out.write("                                        <a href=\"#\" class=\"text-green\">Add friend</a>\n");
-      out.write("                                    </div>\n");
-      out.write("                                </div>\n");
-      out.write("                            </div>\n");
-      out.write("                        </div>\n");
+      out.write("                        <!-- scriptlet to write code java -->\n");
+      out.write("                        ");
+
+                            RelationControl relationcontrol = new RelationControl();
+                            relationcontrol.setConnection(connect);
+                            friends = relationcontrol.getFriends(user);
+                            pageContext.setAttribute("FRINDS", friends);
+                            
+      out.write("\n");
+      out.write("                        <!-- Foreach to Display All friends of Post (TAGLIB) -->\n");
+      out.write("                        ");
+      if (_jspx_meth_c_forEach_2(_jspx_page_context))
+        return;
+      out.write("\n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
       out.write("            </div>\n");
@@ -690,7 +697,7 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_0 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_0.setPageContext(_jspx_page_context);
     _jspx_th_c_if_0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_0);
-    _jspx_th_c_if_0.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${image != \"\"}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_0.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${image != ''}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_0 = _jspx_th_c_if_0.doStartTag();
     if (_jspx_eval_c_if_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
@@ -739,7 +746,7 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_1 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_1.setPageContext(_jspx_page_context);
     _jspx_th_c_if_1.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_0);
-    _jspx_th_c_if_1.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${text != \"\"}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_1.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${text != ''}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_1 = _jspx_th_c_if_1.doStartTag();
     if (_jspx_eval_c_if_1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
@@ -832,6 +839,59 @@ public final class newsfeed_jsp extends org.apache.jasper.runtime.HttpJspBase
       return true;
     }
     _jspx_tagPool_c_remove_var_nobody.reuse(_jspx_th_c_remove_3);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_forEach_2(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:forEach
+    org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_2 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_var_items.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
+    _jspx_th_c_forEach_2.setPageContext(_jspx_page_context);
+    _jspx_th_c_forEach_2.setParent(null);
+    _jspx_th_c_forEach_2.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${FRINDS}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_forEach_2.setVar("friend");
+    int[] _jspx_push_body_count_c_forEach_2 = new int[] { 0 };
+    try {
+      int _jspx_eval_c_forEach_2 = _jspx_th_c_forEach_2.doStartTag();
+      if (_jspx_eval_c_forEach_2 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+        do {
+          out.write("\n");
+          out.write("                            <div class=\"col-md-4\">\n");
+          out.write("                                <div class=\"suggestions\" id=\"sticky-sidebar\">\n");
+          out.write("                                    <h4 class=\"grey\">Who to Follow</h4>\n");
+          out.write("                                    <div class=\"follow-user\">\n");
+          out.write("                                        <img src=\"images/users/user-11.jpg\" alt=\"\" class=\"profile-photo-sm pull-left\" />\n");
+          out.write("                                        <div>\n");
+          out.write("                                            <!-- Display Name of Friend -->\n");
+          out.write("                                            <h5><a href=\"timeline.html\">");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${friend.getName()}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("</a></h5>\n");
+          out.write("                                            <a href=\"../../addfriend?id=");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${friend.getId()}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("\" class=\"text-green\">Add friend</a>\n");
+          out.write("                                        </div>\n");
+          out.write("                                    </div>\n");
+          out.write("                                </div>\n");
+          out.write("                            </div>\n");
+          out.write("                        ");
+          int evalDoAfterBody = _jspx_th_c_forEach_2.doAfterBody();
+          if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
+            break;
+        } while (true);
+      }
+      if (_jspx_th_c_forEach_2.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+        return true;
+      }
+    } catch (Throwable _jspx_exception) {
+      while (_jspx_push_body_count_c_forEach_2[0]-- > 0)
+        out = _jspx_page_context.popBody();
+      _jspx_th_c_forEach_2.doCatch(_jspx_exception);
+    } finally {
+      _jspx_th_c_forEach_2.doFinally();
+      _jspx_tagPool_c_forEach_var_items.reuse(_jspx_th_c_forEach_2);
+    }
     return false;
   }
 }

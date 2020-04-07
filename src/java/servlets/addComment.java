@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,14 +22,20 @@ public class addComment extends HttpServlet {
             throws ServletException, IOException {
         String comment = request.getParameter("comment"),
                 idpost = request.getParameter("id");
-        User user = null;
-        user = (User) request.getSession().getAttribute("user");
-        Connection connection = (Connection) getServletContext().getAttribute("Connect");
-        Post post = new Post();
-        post.setIdpost(Integer.parseInt(idpost));
-        CommentServices commentservices = new CommentServices();
-        commentservices.setConnection(connection);
-        commentservices.addComment(user, post, comment);
-        response.sendRedirect("View/friend-finder/newsfeed.jsp");
+        if (comment.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "You must fill the Comment", "invalid",
+                    JOptionPane.ERROR_MESSAGE);
+            response.sendRedirect("View/friend-finder/newsfeed.jsp");
+        } else {
+            User user = null;
+            user = (User) request.getSession().getAttribute("user");
+            Connection connection = (Connection) getServletContext().getAttribute("Connect");
+            Post post = new Post();
+            post.setIdpost(Integer.parseInt(idpost));
+            CommentServices commentservices = new CommentServices();
+            commentservices.setConnection(connection);
+            commentservices.addComment(user, post, comment);
+            response.sendRedirect("View/friend-finder/newsfeed.jsp");
+        }
     }
 }

@@ -23,16 +23,22 @@ public class SharePost extends HttpServlet {
         try {
             String text = request.getParameter("texts"),
                     image = request.getParameter("image");
-            User user = (User) request.getSession().getAttribute("user");
-            Connection connect = (Connection) getServletContext().getAttribute("Connect");
-            PostServices postservices = new PostServices();
-            postservices.setConnection(connect);
-            Post post = new Post();
-            post.setIduser(user.getId());
-            post.setText(text);
-            post.setImage(image);
-            if (postservices.sharePost(post) == 1) {
+            if (text.isEmpty() && image.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "You must fill post", "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 response.sendRedirect("View/friend-finder/newsfeed.jsp");
+            } else {
+                User user = (User) request.getSession().getAttribute("user");
+                Connection connect = (Connection) getServletContext().getAttribute("Connect");
+                PostServices postservices = new PostServices();
+                postservices.setConnection(connect);
+                Post post = new Post();
+                post.setIduser(user.getId());
+                post.setText(text);
+                post.setImage(image);
+                if (postservices.sharePost(post) == 1) {
+                    response.sendRedirect("View/friend-finder/newsfeed.jsp");
+                }
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "You must select only image", "Error", JOptionPane.ERROR_MESSAGE);

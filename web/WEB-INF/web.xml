@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>FilterPageUser</filter-name>
+        <filter-class>servlets.FilterPageUser</filter-class>
+    </filter>
+    <filter>
+        <filter-name>FilterJspPage</filter-name>
+        <filter-class>servlets.FilterJspPage</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterJspPage</filter-name>
+        <servlet-name>newsfeed</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterPageUser</filter-name>
+        <servlet-name>NewAccount</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterPageUser</filter-name>
+        <servlet-name>logIn</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterPageUser</filter-name>
+        <servlet-name>SharePost</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterPageUser</filter-name>
+        <servlet-name>addLike</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterPageUser</filter-name>
+        <servlet-name>addComment</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterPageUser</filter-name>
+        <servlet-name>addfriend</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterPageUser</filter-name>
+        <servlet-name>newsfeed</servlet-name>
+    </filter-mapping>
     <listener>
         <description>ServletContextListener</description>
         <listener-class>servlets.ListenerConnection</listener-class>
@@ -28,6 +68,10 @@
         <servlet-name>addfriend</servlet-name>
         <servlet-class>servlets.addfriend</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>newsfeed</servlet-name>
+        <jsp-file>/View/friend-finder/newsfeed.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NewAccount</servlet-name>
         <url-pattern>/NewAccount</url-pattern>
@@ -52,9 +96,11 @@
         <servlet-name>addfriend</servlet-name>
         <url-pattern>/addfriend</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>newsfeed</servlet-name>
+        <url-pattern>/View/friend-finder/newsfeed.jsp</url-pattern>
+    </servlet-mapping>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30000</session-timeout>
     </session-config>
 </web-app>

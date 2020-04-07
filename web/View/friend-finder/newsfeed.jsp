@@ -4,11 +4,15 @@
     Author     : Eng Eslam khder
 --%>
 
+<%@page import="Controller.RelationControl"%>
+<%@page import="Controller.LikeControl"%>
+<%@page import="Controller.CommentControl"%>
+<%@page import="Controller.UserControl"%>
+<%@page import="Controller.PostControl"%>
 <%@page import="Model.Comment"%>
 <%@page import="java.util.Collections"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="Model.User"%>
-<%@page import="Controller.Control_DB"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="Model.Post"%>
@@ -211,11 +215,11 @@
                             // Connection of Database
                             Connection connect = (Connection) application.getAttribute("Connect");
                             // Object of class (Control_DB)
-                            Control_DB control_db = new Control_DB();
+                            PostControl postcontrol = new PostControl();
                             // Set connection Of Database
-                            control_db.setConnecion(connect);
+                            postcontrol.setConnection(connect);
                             // get All Posts of DataBase
-                            posts = control_db.getPosts();
+                            posts = postcontrol.getPosts();
                             // Set ArrayList Posts in Attribute (POSTS) to use it in foreach (Taglib)
                             pageContext.setAttribute("POSTS", posts);
                         </jsp:scriptlet>
@@ -225,7 +229,7 @@
                             <c:set var="image" value="${post.getImage()}"/>  
                             <div class="post-content">
                                 <!-- If Condition (if no-image not display) (JSTL TAGLB) -->
-                                <c:if test="${image != \"\"}">  
+                                <c:if test="${image != ''}">  
                                     <img src="images/${post.getImage()}" alt="post-image" class="img-responsive post-image" />
                                 </c:if>
                                 <div class="post-container">
@@ -251,12 +255,18 @@
                                             </jsp:useBean>
                                             <!-- scriptlet to write code java -->
                                             <jsp:scriptlet>
+                                                UserControl usercontrol = new UserControl();
+                                                usercontrol.setConnection(connect);
                                                 // get UserName
-                                                Userid = control_db.getUserName(Userid);
+                                                Userid = usercontrol.getUserName(Userid);
+                                                CommentControl commentcontrol = new CommentControl();
+                                                commentcontrol.setConnection(connect);
                                                 // get comments of user
-                                                comments = control_db.getComments(Postid);
+                                                comments = commentcontrol.getComments(Postid);
                                                 // Set ArrayList comments in Attribute (COMMENTS) to use it in foreach (Taglib)
                                                 pageContext.setAttribute("COMMENTS", comments);
+                                                LikeControl likecontrol = new LikeControl();
+                                                likecontrol.setConnection(connect);
                                             </jsp:scriptlet>
                                             <h5><a href="timeline.html" class="profile-link">
                                                     <!-- Display user Name-->
@@ -265,14 +275,14 @@
                                             <p class="text-muted">Published a photo about 3 mins ago</p>
                                         </div>
                                         <div class="reaction">
-                                            <a href="../../addLike?id=${post.getIdpost()}" class="btn text-green"><i class="icon ion-thumbsup"></i> <%=control_db.numberLikes(Postid)%></a>
+                                            <a href="../../addLike?id=${post.getIdpost()}" class="btn text-green"><i class="icon ion-thumbsup"></i> <%=likecontrol.numberLikes(Postid)%></a>
                                         </div>
                                         <div class="line-divider"></div>
                                         <div class="post-text">
                                             <!-- Set Variable (JSTL TAGLB) -->
                                             <c:set var="text" value="${post.getText()}"/> 
                                             <!-- If Condition (if no-text not display) (JSTL TAGLB) -->
-                                            <c:if test="${text != \"\"}">  
+                                            <c:if test="${text != ''}">  
                                                 <p>
                                                     ${post.getText()}
                                                 </p>
@@ -289,7 +299,7 @@
                                             </jsp:useBean>
                                             <!-- scriptlet to write code java -->
                                             <jsp:scriptlet>
-                                                usercomment = control_db.getUserName(usercomment);
+                                                usercomment = usercontrol.getUserName(usercomment);
                                             </jsp:scriptlet>
                                             <div class="post-comment">
                                                 <img src="images/users/user-11.jpg" alt="" class="profile-photo-sm" />
@@ -323,7 +333,9 @@
                         ================================================= -->
                         <!-- scriptlet to write code java -->
                         <jsp:scriptlet>
-                            friends = control_db.getFriends(user);
+                            RelationControl relationcontrol = new RelationControl();
+                            relationcontrol.setConnection(connect);
+                            friends = relationcontrol.getFriends(user);
                             pageContext.setAttribute("FRINDS", friends);
                             </jsp:scriptlet>
                         <!-- Foreach to Display All friends of Post (TAGLIB) -->
