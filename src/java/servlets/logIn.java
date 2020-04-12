@@ -4,11 +4,11 @@ import DataBaseFiles.ServicesImplementation.UserServices;
 import Model.User;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,8 +22,7 @@ public class logIn extends HttpServlet {
         String email = request.getParameter("email").trim(),
                 password = request.getParameter("password").trim();
         Connection connection = (Connection) getServletContext().getAttribute("Connect");
-        if (email.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "You must fill All flieds", "invalid", JOptionPane.ERROR_MESSAGE);
+        if (email.isEmpty() || password.isEmpty() || !(valEmail(email))) {
             response.sendRedirect("View/friend-finder/Log_In.html");
         } else {
             User user = new User();
@@ -39,5 +38,10 @@ public class logIn extends HttpServlet {
                 response.sendRedirect("View/friend-finder/newsfeed.jsp");
             }
         }
+    }
+    public boolean valEmail(String input) {
+        String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,3}$";
+        Pattern emailPat = Pattern.compile(emailRegex,Pattern.CASE_INSENSITIVE);
+        return emailPat.matcher(input).find();
     }
 }

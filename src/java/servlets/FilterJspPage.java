@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import Model.User;
@@ -14,11 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
-/**
- *
- * @author Eng Eslam khder
- */
+
 public class FilterJspPage implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,

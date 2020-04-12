@@ -5,7 +5,6 @@
  */
 package Controller;
 
-import DataBaseFiles.ServicesImplementation.DataBaseConnection;
 import DataBaseFiles.ServicesImplementation.UserServices;
 import Model.User;
 import java.sql.Connection;
@@ -26,6 +25,10 @@ public class UserControl {
     // Set Connection of Database
     public void setConnection(Connection connection) {
         userservices.setConnection(connection);
+    }
+    // Get User ID
+    public int getUserId(User user){
+        return userservices.getUserId(user);
     }
     // Add User Account
     public int addUser(User user) {

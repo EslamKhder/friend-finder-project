@@ -219,7 +219,7 @@
                             // Set connection Of Database
                             postcontrol.setConnection(connect);
                             // get All Posts of DataBase
-                            posts = postcontrol.getPosts();
+                            posts = postcontrol.getPosts(user);
                             // Set ArrayList Posts in Attribute (POSTS) to use it in foreach (Taglib)
                             pageContext.setAttribute("POSTS", posts);
                         </jsp:scriptlet>

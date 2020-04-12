@@ -1,6 +1,7 @@
 package DataBaseFiles.ServicesInterface;
 
 import Model.Post;
+import Model.User;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -14,5 +15,5 @@ public interface PostService {
     // Share Post
     public int sharePost(Post post);
     // Get All Post 
-    public ArrayList<Post> getPosts();
+    public ArrayList<Post> getPosts(User user);
 }

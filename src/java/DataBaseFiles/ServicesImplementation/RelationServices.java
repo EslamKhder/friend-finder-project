@@ -26,7 +26,6 @@ public class RelationServices implements RelationService {
         this.connection = connection;
     }
     // Check if User is in relation 
-
     @Override
     public int getRelation(User user1, User user2) {
         instraction = "SELECT * FROM Relation Where IDEMAIL = ? AND IDFriend = ?";

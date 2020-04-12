@@ -1,6 +1,4 @@
 package servlets;
-
-import Controller.DatabaseControl;
 import DataBaseFiles.ServicesImplementation.RelationServices;
 import Model.User;
 import java.io.IOException;

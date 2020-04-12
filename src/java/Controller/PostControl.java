@@ -8,6 +8,7 @@ package Controller;
 import DataBaseFiles.ServicesImplementation.DataBaseConnection;
 import DataBaseFiles.ServicesImplementation.PostServices;
 import Model.Post;
+import Model.User;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -36,7 +37,7 @@ public class PostControl {
     }
 
     // Get All Post 
-    public ArrayList<Post> getPosts() {
-        return postservices.getPosts();
+    public ArrayList<Post> getPosts(User user) {
+        return postservices.getPosts(user);
     }
 }

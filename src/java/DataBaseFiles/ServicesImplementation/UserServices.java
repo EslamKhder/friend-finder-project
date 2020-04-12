@@ -24,7 +24,24 @@ public class UserServices implements UserService {
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
-
+    // Get User ID
+    public int getUserId(User user){
+        instraction = "SELECT id FROM log_in WHERE email = ? and password = ?";
+        int id = 0;
+        try {
+            preparedstatement = connection.prepareStatement(instraction);
+            preparedstatement.setString(1, user.getEmail());
+            preparedstatement.setString(2, user.getPassword());
+            ResultSet resultset = preparedstatement.executeQuery();
+            if (resultset.next()) {
+                id = resultset.getInt(1);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error Because " + e.toString(),
+                    "Connection Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return id;
+    }
     // Add User To Data Base
     @Override
     public int add(User user) {
@@ -38,8 +55,7 @@ public class UserServices implements UserService {
             preparedstatement.setInt(5, user.getDistance());
             result = preparedstatement.executeUpdate();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Email is already use " + e.getMessage(), "Error Input",
-                    JOptionPane.ERROR_MESSAGE);
+            return 0;
         }
         return result;
     }
@@ -60,9 +76,6 @@ public class UserServices implements UserService {
                 user.setPassword(resultset.getString(4));
                 user.setJob(resultset.getString(5));
                 user.setDistance(resultset.getInt(6));
-            } else {
-                JOptionPane.showMessageDialog(null, "Invalid email and Password",
-                        "Connection Error", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error Because " + e.toString(),
@@ -91,5 +104,4 @@ public class UserServices implements UserService {
         }
         return user;
     }
-
 }

@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,8 +23,6 @@ public class SharePost extends HttpServlet {
             String text = request.getParameter("texts"),
                     image = request.getParameter("image");
             if (text.isEmpty() && image.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "You must fill post", "Error",
-                        JOptionPane.ERROR_MESSAGE);
                 response.sendRedirect("View/friend-finder/newsfeed.jsp");
             } else {
                 User user = (User) request.getSession().getAttribute("user");
@@ -41,7 +38,6 @@ public class SharePost extends HttpServlet {
                 }
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "You must select only image", "Error", JOptionPane.ERROR_MESSAGE);
             response.sendRedirect("View/friend-finder/newsfeed.jsp");
         }
     }
