@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,8 +33,14 @@ public class logIn extends HttpServlet {
             userservices.setConnection(connection);
             user = userservices.getUser(user);
             if (user.getId() == 0) {
-                response.sendRedirect("View/friend-finder/Log_In.html");
+                response.sendRedirect("View/friend-finder/Log_In.jsp");
             } else if (email.equals(user.getEmail()) && password.equals(user.getPassword())) {
+                Cookie c1 = new Cookie("email", email);
+                Cookie c2 = new Cookie("password", password);
+                c1.setMaxAge(60*60*24);
+                c2.setMaxAge(60*60*24);
+                response.addCookie(c1);
+                response.addCookie(c2);
                 request.getSession().setAttribute("user", user);
                 response.sendRedirect("View/friend-finder/newsfeed.jsp");
             }

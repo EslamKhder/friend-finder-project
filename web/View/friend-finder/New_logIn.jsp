@@ -1,3 +1,7 @@
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="DataBaseFiles.ServicesImplementation.UserServices"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="Model.User"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -18,18 +22,29 @@
         <link href='https://fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,300italic,400italic,500,500italic,600,600italic,700' rel='stylesheet' type='text/css'>
         <!--Favicon-->
         <link rel="shortcut icon" type="image/png" href="images/fav.png"/>
-        <style>
-            .create
-            {
-                margin: -60px;
-                position: relative;
-                top: 57px;
-            }
-        </style>
     </head>
-
     <body>
-
+        <%
+            User user = new User();
+            user.setId(0);
+            Cookie[] cookies = request.getCookies();
+            for (int i = 0; i < cookies.length; i++) {
+                if (cookies[i].getName().equals("email")) {
+                    user.setEmail(cookies[i].getValue());
+                }
+                if (cookies[i].getName().equals("password")) {
+                    user.setPassword(cookies[i].getValue());
+                }
+            }
+            Connection connection = (Connection) getServletContext().getAttribute("Connect");
+            UserServices userservices = new UserServices();
+            userservices.setConnection(connection);
+            user = userservices.getUser(user);
+            if (user.getId()!= 0) {
+                request.getSession().setAttribute("user", user);
+                response.sendRedirect("newsfeed.jsp");
+            }
+        %>
         <!-- Header
         ================================================= -->
         <header id="header" class="lazy-load">
@@ -96,7 +111,6 @@
                                 <input type="text" class="form-control" placeholder="Search friends, photos, videos">
                             </div>
                         </form>
-
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container -->
             </nav>
@@ -116,21 +130,30 @@
                     <div class="line-divider"></div>
                     <div class="form-wrapper">
                         <p class="signup-text">Signup now and meet awesome people around the world</p>
-                        <form action="../../logIn" method="POST">
+                        <form action="../../NewAccount" method="POST">
                             <fieldset class="form-group">
-                                <input type="email" name="email" class="form-control" id="example-email" placeholder="Enter email" autofocus>
+                                <input type="text" required name="fullname" class="form-control" minlength="6" id="example-name" placeholder="Enter name" autofocus>
                             </fieldset>
                             <fieldset class="form-group">
-                                <input type="password"  name="password" class="form-control" minlength="10" id="example-password" placeholder="Enter a password"  title="must include length(10) at least">
+                                <input type="email" required name="email" class="form-control" id="example-email" placeholder="Enter email" >
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <input type="password" required name="password" class="form-control" minlength="10" id="example-password" placeholder="Enter a password" pattern="[A-Za-z0-9]{10,}" title="must include length(10) at least">
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <input type="text" required name="job" class="form-control" minlength="5" id="example-password" pattern="[A-Za-z]{1,}" placeholder="Enter Your Job">
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <input type="text" required name="distance" class="form-control" id="example-password" placeholder="Enter Your distance in K_M" pattern="[0-9]{1,}" title="must include only Number">
                             </fieldset>
                             <p>By signning up you agree to the terms</p>
-                            <button class="btn-secondary">Log In</button>
-                            <a href="New_logIn.html" class="create">Create New Account?</a>
+                            <button class="btn-secondary">Signup</button>
                         </form>
-
                     </div>
+                    <a href="Log_In.jsp">Already have an account?</a>
                     <img class="form-shadow" src="images/bottom-shadow.png" alt="" />
                 </div><!-- Sign Up Form End -->
+
 
                 <svg class="arrows hidden-xs hidden-sm">
                 <path class="a1" d="M0 0 L30 32 L60 0"></path>
@@ -228,7 +251,7 @@
                     <li><a href="#" title="Anna Young"><img src="images/users/user-9.jpg" alt="" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>
                     <li><a href="#" title="Julia Cox"><img src="images/users/user-10.jpg" alt="" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>
                 </ul>
-                <h2 class="sub-title">see what’s happening now</h2>
+                <h2 class="sub-title">see what?s happening now</h2>
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-md-offset-2">
                         <div class="feed-item">
@@ -384,8 +407,6 @@
         <script src="js/jquery.appear.min.js"></script>
         <script src="js/jquery.incremental-counter.js"></script>
         <script src="js/script.js"></script>
-        <script>
 
-        </script>
     </body>
 </html>

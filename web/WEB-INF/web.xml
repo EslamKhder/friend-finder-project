@@ -40,6 +40,14 @@
         <servlet-name>newsfeed</servlet-name>
         <jsp-file>/View/friend-finder/newsfeed.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>CookiesLogIn</servlet-name>
+        <servlet-class>servlets.CookiesLogIn</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogOut</servlet-name>
+        <servlet-class>servlets.LogOut</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NewAccount</servlet-name>
         <url-pattern>/NewAccount</url-pattern>
@@ -67,6 +75,14 @@
     <servlet-mapping>
         <servlet-name>newsfeed</servlet-name>
         <url-pattern>/View/friend-finder/newsfeed.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CookiesLogIn</servlet-name>
+        <url-pattern>/CookiesLogIn</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogOut</servlet-name>
+        <url-pattern>/LogOut</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30000</session-timeout>

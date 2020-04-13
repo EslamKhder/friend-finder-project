@@ -120,9 +120,11 @@
                                     <li><a href="timeline-album.html">Timeline Album</a></li>
                                     <li><a href="timeline-friends.html">Timeline Friends</a></li>
                                     <li><a href="contact.html">Contact Us</a></li>
+                                    
                                 </ul>
                             </li>
                             <li class="dropdown"><a href="contact.html">Contact</a></li>
+                            <li class="dropdown"><a href="../../LogOut">Log Out</a></li>
                         </ul>
                         <form class="navbar-form navbar-right hidden-sm">
                             <div class="form-group">

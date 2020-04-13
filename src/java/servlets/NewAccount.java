@@ -11,10 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Eng Eslam khder
- */
 public class NewAccount extends HttpServlet {
 
     @Override
@@ -27,11 +23,11 @@ public class NewAccount extends HttpServlet {
                     job = request.getParameter("job").trim();
             int distance = 0;
             if (name.isEmpty() || email.isEmpty() || password.isEmpty() || job.isEmpty()) {
-                response.sendRedirect("View/friend-finder/New_logIn.html");
+                response.sendRedirect("View/friend-finder/New_logIn.jsp");
             } else {
                 if (!(Pattern.matches("[a-zA-Z]+", job)) || !(valEmail(email))) {
                     JOptionPane.showMessageDialog(null, "yes");
-                    response.sendRedirect("View/friend-finder/New_logIn.html");
+                    response.sendRedirect("View/friend-finder/New_logIn.jsp");
                 } else {
                     distance = Integer.parseInt(request.getParameter("distance").trim());
                     User user = new User();
@@ -48,13 +44,13 @@ public class NewAccount extends HttpServlet {
                         request.getSession().setAttribute("user", user);
                         response.sendRedirect("View/friend-finder/newsfeed.jsp");
                     } else {
-                        response.sendRedirect("View/friend-finder/New_logIn.html");
+                        response.sendRedirect("View/friend-finder/New_logIn.jsp");
                     }
                 }
             }
 
         } catch (Exception e) {
-            response.sendRedirect("View/friend-finder/New_logIn.html");
+            response.sendRedirect("View/friend-finder/New_logIn.jsp");
         }
 
     }
