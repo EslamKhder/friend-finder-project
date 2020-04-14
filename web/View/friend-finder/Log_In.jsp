@@ -49,7 +49,7 @@
             UserServices userservices = new UserServices();
             userservices.setConnection(connection);
             user = userservices.getUser(user);
-            if (user.getId()!= 0) {
+            if (user.getId() != 0) {
                 request.getSession().setAttribute("user", user);
                 response.sendRedirect("newsfeed.jsp");
             }
@@ -142,20 +142,18 @@
                         <p class="signup-text">Signup now and meet awesome people around the world</p>
                         <form action="../../logIn" method="POST">
                             <fieldset class="form-group">
-                                <input type="email" name="email" class="form-control" id="example-email" placeholder="Enter email" autofocus>
+                                <input type="email" required name="email" class="form-control" id="example-email" placeholder="Enter email" autofocus>
                             </fieldset>
                             <fieldset class="form-group">
-                                <input type="password"  name="password" class="form-control" minlength="10" id="example-password" placeholder="Enter a password"  title="must include length(10) at least">
+                                <input type="password" required name="password" class="form-control" minlength="10" id="example-password" placeholder="Enter a password" pattern="[A-Za-z0-9]{10,}" title="must include length(10) at least">
                             </fieldset>
-                            <p>By signning up you agree to the terms</p>
-                            <button class="btn-secondary">Log In</button>
+                            <div id="invalid"></div>
                             <a href="New_logIn.jsp" class="create">Create New Account?</a>
+                            <button class="btn-secondary">Log In</button>
                         </form>
-
                     </div>
                     <img class="form-shadow" src="images/bottom-shadow.png" alt="" />
                 </div><!-- Sign Up Form End -->
-
                 <svg class="arrows hidden-xs hidden-sm">
                 <path class="a1" d="M0 0 L30 32 L60 0"></path>
                 <path class="a2" d="M0 20 L30 52 L60 20"></path>
@@ -400,6 +398,7 @@
         <div id="spinner-wrapper">
             <div class="spinner"></div>
         </div>
+        <div id="res"><%=request.getParameter("error")%></div>
 
         <!-- Scripts
         ================================================= -->
@@ -409,7 +408,14 @@
         <script src="js/jquery.incremental-counter.js"></script>
         <script src="js/script.js"></script>
         <script>
-
+            var val = document.getElementById("res").innerHTML;
+            if (val == "email") {
+                document.getElementById("invalid").innerHTML = "Invalid Email";
+            } else if (val == "password") {
+                document.getElementById("invalid").innerHTML = "Invalid Password";
+            } else if (val == "invalid") {
+                document.getElementById("invalid").innerHTML = "Invalid Email And Password";
+            }
         </script>
     </body>
 </html>

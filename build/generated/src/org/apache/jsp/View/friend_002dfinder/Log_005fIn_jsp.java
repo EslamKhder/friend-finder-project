@@ -97,7 +97,7 @@ public final class Log_005fIn_jsp extends org.apache.jasper.runtime.HttpJspBase
             UserServices userservices = new UserServices();
             userservices.setConnection(connection);
             user = userservices.getUser(user);
-            if (user.getId()!= 0) {
+            if (user.getId() != 0) {
                 request.getSession().setAttribute("user", user);
                 response.sendRedirect("newsfeed.jsp");
             }
@@ -191,20 +191,18 @@ public final class Log_005fIn_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        <p class=\"signup-text\">Signup now and meet awesome people around the world</p>\n");
       out.write("                        <form action=\"../../logIn\" method=\"POST\">\n");
       out.write("                            <fieldset class=\"form-group\">\n");
-      out.write("                                <input type=\"email\" name=\"email\" class=\"form-control\" id=\"example-email\" placeholder=\"Enter email\" autofocus>\n");
+      out.write("                                <input type=\"email\" required name=\"email\" class=\"form-control\" id=\"example-email\" placeholder=\"Enter email\" autofocus>\n");
       out.write("                            </fieldset>\n");
       out.write("                            <fieldset class=\"form-group\">\n");
-      out.write("                                <input type=\"password\"  name=\"password\" class=\"form-control\" minlength=\"10\" id=\"example-password\" placeholder=\"Enter a password\"  title=\"must include length(10) at least\">\n");
+      out.write("                                <input type=\"password\" required name=\"password\" class=\"form-control\" minlength=\"10\" id=\"example-password\" placeholder=\"Enter a password\" pattern=\"[A-Za-z0-9]{10,}\" title=\"must include length(10) at least\">\n");
       out.write("                            </fieldset>\n");
-      out.write("                            <p>By signning up you agree to the terms</p>\n");
+      out.write("                            <div id=\"invalid\"></div>\n");
+      out.write("                            <a href=\"New_logIn.jsp\" class=\"create\">Create New Account?</a>\n");
       out.write("                            <button class=\"btn-secondary\">Log In</button>\n");
-      out.write("                            <a href=\"New_logIn.html\" class=\"create\">Create New Account?</a>\n");
       out.write("                        </form>\n");
-      out.write("\n");
       out.write("                    </div>\n");
       out.write("                    <img class=\"form-shadow\" src=\"images/bottom-shadow.png\" alt=\"\" />\n");
       out.write("                </div><!-- Sign Up Form End -->\n");
-      out.write("\n");
       out.write("                <svg class=\"arrows hidden-xs hidden-sm\">\n");
       out.write("                <path class=\"a1\" d=\"M0 0 L30 32 L60 0\"></path>\n");
       out.write("                <path class=\"a2\" d=\"M0 20 L30 52 L60 20\"></path>\n");
@@ -449,6 +447,9 @@ public final class Log_005fIn_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <div id=\"spinner-wrapper\">\n");
       out.write("            <div class=\"spinner\"></div>\n");
       out.write("        </div>\n");
+      out.write("        <div id=\"res\">");
+      out.print(request.getParameter("error"));
+      out.write("</div>\n");
       out.write("\n");
       out.write("        <!-- Scripts\n");
       out.write("        ================================================= -->\n");
@@ -458,7 +459,14 @@ public final class Log_005fIn_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <script src=\"js/jquery.incremental-counter.js\"></script>\n");
       out.write("        <script src=\"js/script.js\"></script>\n");
       out.write("        <script>\n");
-      out.write("\n");
+      out.write("            var val = document.getElementById(\"res\").innerHTML;\n");
+      out.write("            if (val == \"email\") {\n");
+      out.write("                document.getElementById(\"invalid\").innerHTML = \"Invalid Email\";\n");
+      out.write("            } else if (val == \"password\") {\n");
+      out.write("                document.getElementById(\"invalid\").innerHTML = \"Invalid Password\";\n");
+      out.write("            } else if (val == \"invalid\") {\n");
+      out.write("                document.getElementById(\"invalid\").innerHTML = \"Invalid Email And Password\";\n");
+      out.write("            }\n");
       out.write("        </script>\n");
       out.write("    </body>\n");
       out.write("</html>");

@@ -87,7 +87,7 @@ public class PostServices implements PostService {
                 preparedstatement = connection.prepareStatement(instraction);
                 preparedstatement.setInt(1, ids.get(i));
                 resultset = preparedstatement.executeQuery();
-                if (resultset.next()) {
+                while (resultset.next()) {
                     Post post = new Post();
                     post.setIduser(resultset.getInt(1));
                     post.setIdpost(resultset.getInt(2));

@@ -134,19 +134,23 @@
                             <fieldset class="form-group">
                                 <input type="text" required name="fullname" class="form-control" minlength="6" id="example-name" placeholder="Enter name" autofocus>
                             </fieldset>
+                            <div id="N"></div>
                             <fieldset class="form-group">
                                 <input type="email" required name="email" class="form-control" id="example-email" placeholder="Enter email" >
                             </fieldset>
+                            <div id="E"></div>
                             <fieldset class="form-group">
                                 <input type="password" required name="password" class="form-control" minlength="10" id="example-password" placeholder="Enter a password" pattern="[A-Za-z0-9]{10,}" title="must include length(10) at least">
                             </fieldset>
+                            <div id="P"></div>
                             <fieldset class="form-group">
                                 <input type="text" required name="job" class="form-control" minlength="5" id="example-password" pattern="[A-Za-z]{1,}" placeholder="Enter Your Job">
                             </fieldset>
+                            <div id="J"></div>
                             <fieldset class="form-group">
                                 <input type="text" required name="distance" class="form-control" id="example-password" placeholder="Enter Your distance in K_M" pattern="[0-9]{1,}" title="must include only Number">
                             </fieldset>
-                            <p>By signning up you agree to the terms</p>
+                            <div id="D"></div>
                             <button class="btn-secondary">Signup</button>
                         </form>
                     </div>
@@ -399,7 +403,7 @@
         <div id="spinner-wrapper">
             <div class="spinner"></div>
         </div>
-
+        <div id="res"><%=request.getParameter("error")%></div>
         <!-- Scripts
         ================================================= -->
         <script src="js/jquery-3.1.1.min.js"></script>
@@ -407,6 +411,20 @@
         <script src="js/jquery.appear.min.js"></script>
         <script src="js/jquery.incremental-counter.js"></script>
         <script src="js/script.js"></script>
+        <script>
+            var val = document.getElementById("res").innerHTML;
+            if (val == "email") {
+                document.getElementById("E").innerHTML = "Invalid Email";
+            } else if (val == "password") {
+                document.getElementById("P").innerHTML = "Invalid Password";
+            } else if (val == "job") {
+                document.getElementById("J").innerHTML = "Invalid Email And Password";
+            } else if (val == "name") {
+                document.getElementById("N").innerHTML = "Invalid NAME";
+            } else if (val == "distance") {
+                document.getElementById("D").innerHTML = "Invalid Distance";
+            }
+        </script>
 
     </body>
 </html>
