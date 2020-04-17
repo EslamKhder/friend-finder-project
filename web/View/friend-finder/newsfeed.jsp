@@ -62,6 +62,52 @@
             margin-right: 3px
         }
     </style>
+    <!--
+    <script>
+            var request;
+            function sendComment()
+            {
+                var comment = document.getElementById("comment"%>).value,
+                    id = document.getElementById("id").value;
+                alert(comment);
+                alert(id);
+                var url = "../../addComment?comment=" + comment + "&id=" +  id;
+                if (window.XMLHttpRequest) {
+                    request = new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    request = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                try
+                {
+                    request.onreadystatechange = getInfo;
+                    request.open("GET", url, true);
+                    request.send();
+                } catch (e)
+                {
+                    alert("Unable to connect to server");
+                }
+            }
+
+            function getInfo() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var val = this.responseXML;
+                    alert(val);
+                    var res = val.getElementsByTagName("res")[0].text;
+                    alert(res);
+                    //document.getElementById("amit").innerHTML = val;
+                    //alert(val);
+                    if(res == "1"){
+                        //document.getElementById("amit").innerHTML = "INVALID";
+                    } else {
+                        document.getElementById("incom").innerHTML = "INVALID Comment"
+                        //location.replace("info.jsp");
+                    }
+                } esle {
+                    alert("no");
+                }
+            }
+        </script>
+        -->
     <body>
 
         <!-- Header
@@ -313,7 +359,8 @@
                                             <!--Remove Objects (JSTL TAGLB) -->   
                                             <c:remove var="usercomment"/>
                                         </c:forEach>
-                                        <form action="../../addComment">
+                                            <div id="incom"></div>
+                                            <form action="../../addComment">
                                             <div class="post-comment">
                                                 <img src="images/users/user-1.jpg" alt="" class="profile-photo-sm" />
                                                 <input type="text" name="comment" class="form-control" placeholder="Post a comment" />

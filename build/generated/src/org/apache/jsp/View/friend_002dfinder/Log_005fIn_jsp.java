@@ -77,6 +77,7 @@ public final class Log_005fIn_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                top: 57px;\n");
       out.write("            }\n");
       out.write("        </style>\n");
+      out.write("\n");
       out.write("    </head>\n");
       out.write("\n");
       out.write("    <body>\n");
@@ -85,21 +86,23 @@ public final class Log_005fIn_jsp extends org.apache.jasper.runtime.HttpJspBase
             User user = new User();
             user.setId(0);
             Cookie[] cookies = request.getCookies();
-            for (int i = 0; i < cookies.length; i++) {
-                if (cookies[i].getName().equals("email")) {
-                    user.setEmail(cookies[i].getValue());
+            if (cookies != null) {
+                for (int i = 0; i < cookies.length; i++) {
+                    if (cookies[i].getName().equals("email")) {
+                        user.setEmail(cookies[i].getValue());
+                    }
+                    if (cookies[i].getName().equals("password")) {
+                        user.setPassword(cookies[i].getValue());
+                    }
                 }
-                if (cookies[i].getName().equals("password")) {
-                    user.setPassword(cookies[i].getValue());
+                Connection connection = (Connection) getServletContext().getAttribute("Connect");
+                UserServices userservices = new UserServices();
+                userservices.setConnection(connection);
+                user = userservices.getUser(user);
+                if (user.getId() != 0) {
+                    request.getSession().setAttribute("user", user);
+                    response.sendRedirect("newsfeed.jsp");
                 }
-            }
-            Connection connection = (Connection) getServletContext().getAttribute("Connect");
-            UserServices userservices = new UserServices();
-            userservices.setConnection(connection);
-            user = userservices.getUser(user);
-            if (user.getId() != 0) {
-                request.getSession().setAttribute("user", user);
-                response.sendRedirect("newsfeed.jsp");
             }
         
       out.write("\n");
@@ -189,17 +192,17 @@ public final class Log_005fIn_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <div class=\"line-divider\"></div>\n");
       out.write("                    <div class=\"form-wrapper\">\n");
       out.write("                        <p class=\"signup-text\">Signup now and meet awesome people around the world</p>\n");
-      out.write("                        <form action=\"../../logIn\" method=\"POST\">\n");
+      out.write("                        <form>\n");
       out.write("                            <fieldset class=\"form-group\">\n");
-      out.write("                                <input type=\"email\" required name=\"email\" class=\"form-control\" id=\"example-email\" placeholder=\"Enter email\" autofocus>\n");
+      out.write("                                <input type=\"email\" required id=\"email\" class=\"form-control\" id=\"example-email\" placeholder=\"Enter email\" autofocus>\n");
       out.write("                            </fieldset>\n");
       out.write("                            <fieldset class=\"form-group\">\n");
-      out.write("                                <input type=\"password\" required name=\"password\" class=\"form-control\" minlength=\"10\" id=\"example-password\" placeholder=\"Enter a password\" pattern=\"[A-Za-z0-9]{10,}\" title=\"must include length(10) at least\">\n");
+      out.write("                                <input type=\"password\" required id=\"password\" class=\"form-control\" minlength=\"10\" id=\"example-password\" placeholder=\"Enter a password\" pattern=\"[A-Za-z0-9]{10,}\" title=\"must include length(10) at least\">\n");
       out.write("                            </fieldset>\n");
-      out.write("                            <div id=\"invalid\"></div>\n");
+      out.write("                            <div id=\"inva\"></div>\n");
       out.write("                            <a href=\"New_logIn.jsp\" class=\"create\">Create New Account?</a>\n");
-      out.write("                            <button class=\"btn-secondary\">Log In</button>\n");
       out.write("                        </form>\n");
+      out.write("                        <button onclick=\"login()\">Log In</button>\n");
       out.write("                    </div>\n");
       out.write("                    <img class=\"form-shadow\" src=\"images/bottom-shadow.png\" alt=\"\" />\n");
       out.write("                </div><!-- Sign Up Form End -->\n");
@@ -459,14 +462,45 @@ public final class Log_005fIn_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <script src=\"js/jquery.incremental-counter.js\"></script>\n");
       out.write("        <script src=\"js/script.js\"></script>\n");
       out.write("        <script>\n");
-      out.write("            var val = document.getElementById(\"res\").innerHTML;\n");
-      out.write("            if (val == \"email\") {\n");
-      out.write("                document.getElementById(\"invalid\").innerHTML = \"Invalid Email\";\n");
-      out.write("            } else if (val == \"password\") {\n");
-      out.write("                document.getElementById(\"invalid\").innerHTML = \"Invalid Password\";\n");
-      out.write("            } else if (val == \"invalid\") {\n");
-      out.write("                document.getElementById(\"invalid\").innerHTML = \"Invalid Email And Password\";\n");
-      out.write("            }\n");
+      out.write("                            var request;\n");
+      out.write("                            var email,password;\n");
+      out.write("                            function login()\n");
+      out.write("                            {\n");
+      out.write("                                email = document.getElementById(\"email\").value,\n");
+      out.write("                                       password  = document.getElementById(\"password\").value;\n");
+      out.write("                                var url = \"../../logIn\";\n");
+      out.write("                                if (window.XMLHttpRequest) {\n");
+      out.write("                                    request = new XMLHttpRequest();\n");
+      out.write("                                } else if (window.ActiveXObject) {\n");
+      out.write("                                    request = new ActiveXObject(\"Microsoft.XMLHTTP\");\n");
+      out.write("                                }\n");
+      out.write("                                try\n");
+      out.write("                                {\n");
+      out.write("                                    request.onreadystatechange = getInfo;\n");
+      out.write("                                    request.open(\"post\", url, true);\n");
+      out.write("                                    request.setRequestHeader(\"Content-type\", \"application/x-www-form-urlencoded\");\n");
+      out.write("                                    request.send(\"email=\" + email + \"&password=\" + password);\n");
+      out.write("                                } catch (e)\n");
+      out.write("                                {\n");
+      out.write("                                    alert(\"Unable to connect to server\");\n");
+      out.write("                                }\n");
+      out.write("                            }\n");
+      out.write("\n");
+      out.write("                            function getInfo() {\n");
+      out.write("                                if (this.readyState == 4 && this.status == 200) {\n");
+      out.write("                                    var val = this.responseText;\n");
+      out.write("                                    var error = document.getElementById(\"inva\");\n");
+      out.write("                                    if (val == \"email\") {\n");
+      out.write("                                         error.innerHTML = \"Invalid Email\";\n");
+      out.write("                                    } else if (val == \"password\") {\n");
+      out.write("                                        error.innerHTML = \"Invalid Password\";\n");
+      out.write("                                    } else if (val == \"invalid\") {\n");
+      out.write("                                        error.innerHTML = \"Invalid Email And Password\";\n");
+      out.write("                                    } else if (val == \"success\") {\n");
+      out.write("                                        location.replace(\"newsfeed.jsp\");\n");
+      out.write("                                    }\n");
+      out.write("                                }\n");
+      out.write("                            }\n");
       out.write("        </script>\n");
       out.write("    </body>\n");
       out.write("</html>");

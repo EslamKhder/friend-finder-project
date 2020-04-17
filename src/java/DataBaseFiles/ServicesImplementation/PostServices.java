@@ -82,6 +82,7 @@ public class PostServices implements PostService {
                 post.setImage(resultset.getString(4));
                 posts.add(post);
             }
+            Collections.reverse(posts);
             for (int i = 0; i < ids.size(); i++) {
                 instraction = "SELECT * FROM POST where IDUser = ?";
                 preparedstatement = connection.prepareStatement(instraction);
@@ -95,9 +96,7 @@ public class PostServices implements PostService {
                     post.setImage(resultset.getString(4));
                     posts.add(post);
                 }
-
             }
-            Collections.reverse(posts);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error Because 1" + e.toString(),
                     "Connection Error", JOptionPane.ERROR_MESSAGE);

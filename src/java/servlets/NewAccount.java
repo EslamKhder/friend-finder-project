@@ -24,13 +24,13 @@ public class NewAccount extends HttpServlet {
                     job = request.getParameter("job").trim();
             int distance = Integer.parseInt(request.getParameter("distance").trim());;
             if (name.isEmpty()) {
-                response.sendRedirect("View/friend-finder/New_logIn.jsp?error=name");
+                response.getWriter().print("name");
             } else if (password.isEmpty()) {
-                response.sendRedirect("View/friend-finder/New_logIn.jsp?error=password");
+                response.getWriter().print("password");
             } else if (job.isEmpty() || !(Pattern.matches("[a-zA-Z]+", job))) {
-                response.sendRedirect("View/friend-finder/New_logIn.jsp?error=job");
+                response.getWriter().print("job");
             } else if (!(valEmail(email)) || email.isEmpty()) {
-                response.sendRedirect("View/friend-finder/New_logIn.jsp?error=email");
+                response.getWriter().print("email");
             } else {
                 User user = new User();
                 user.setName(name);
@@ -50,11 +50,11 @@ public class NewAccount extends HttpServlet {
                 c2.setMaxAge(60 * 60 * 24);
                 response.addCookie(c1);
                 response.addCookie(c2);
-                response.sendRedirect("View/friend-finder/newsfeed.jsp");
+                response.getWriter().print("success");
             }
 
         } catch (Exception e) {
-            response.sendRedirect("View/friend-finder/New_logIn.jsp?error=distance");
+            response.getWriter().print("distance");
         }
 
     }

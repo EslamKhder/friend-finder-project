@@ -27,9 +27,10 @@
             {
                 margin: -60px;
                 position: relative;
-                top: 57px;
+                top: 79px;
             }
         </style>
+
     </head>
 
     <body>
@@ -37,21 +38,23 @@
             User user = new User();
             user.setId(0);
             Cookie[] cookies = request.getCookies();
-            for (int i = 0; i < cookies.length; i++) {
-                if (cookies[i].getName().equals("email")) {
-                    user.setEmail(cookies[i].getValue());
+            if (cookies != null) {
+                for (int i = 0; i < cookies.length; i++) {
+                    if (cookies[i].getName().equals("email")) {
+                        user.setEmail(cookies[i].getValue());
+                    }
+                    if (cookies[i].getName().equals("password")) {
+                        user.setPassword(cookies[i].getValue());
+                    }
                 }
-                if (cookies[i].getName().equals("password")) {
-                    user.setPassword(cookies[i].getValue());
+                Connection connection = (Connection) getServletContext().getAttribute("Connect");
+                UserServices userservices = new UserServices();
+                userservices.setConnection(connection);
+                user = userservices.getUser(user);
+                if (user.getId() != 0) {
+                    request.getSession().setAttribute("user", user);
+                    response.sendRedirect("newsfeed.jsp");
                 }
-            }
-            Connection connection = (Connection) getServletContext().getAttribute("Connect");
-            UserServices userservices = new UserServices();
-            userservices.setConnection(connection);
-            user = userservices.getUser(user);
-            if (user.getId() != 0) {
-                request.getSession().setAttribute("user", user);
-                response.sendRedirect("newsfeed.jsp");
             }
         %>
         <!-- Header
@@ -140,17 +143,17 @@
                     <div class="line-divider"></div>
                     <div class="form-wrapper">
                         <p class="signup-text">Signup now and meet awesome people around the world</p>
-                        <form action="../../logIn" method="POST">
+                        <form>
                             <fieldset class="form-group">
-                                <input type="email" required name="email" class="form-control" id="example-email" placeholder="Enter email" autofocus>
+                                <input type="email" required id="email" class="form-control" id="example-email" placeholder="Enter email" autofocus>
                             </fieldset>
                             <fieldset class="form-group">
-                                <input type="password" required name="password" class="form-control" minlength="10" id="example-password" placeholder="Enter a password" pattern="[A-Za-z0-9]{10,}" title="must include length(10) at least">
+                                <input type="password" required id="password" class="form-control" minlength="10" id="example-password" placeholder="Enter a password" pattern="[A-Za-z0-9]{10,}" title="must include length(10) at least">
                             </fieldset>
-                            <div id="invalid"></div>
+                            <div id="inva"></div>
                             <a href="New_logIn.jsp" class="create">Create New Account?</a>
-                            <button class="btn-secondary">Log In</button>
                         </form>
+                        <button class="btn-secondary create" >Log In</button>
                     </div>
                     <img class="form-shadow" src="images/bottom-shadow.png" alt="" />
                 </div><!-- Sign Up Form End -->
@@ -408,13 +411,44 @@
         <script src="js/jquery.incremental-counter.js"></script>
         <script src="js/script.js"></script>
         <script>
-            var val = document.getElementById("res").innerHTML;
-            if (val == "email") {
-                document.getElementById("invalid").innerHTML = "Invalid Email";
-            } else if (val == "password") {
-                document.getElementById("invalid").innerHTML = "Invalid Password";
-            } else if (val == "invalid") {
-                document.getElementById("invalid").innerHTML = "Invalid Email And Password";
+            var request;
+            var email,password;
+            function login()
+            {
+                email = document.getElementById("email").value,
+                       password  = document.getElementById("password").value;
+                var url = "../../logIn";
+                if (window.XMLHttpRequest) {
+                    request = new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    request = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                try
+                {
+                    request.onreadystatechange = getInfo;
+                    request.open("post", url, true);
+                    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    request.send("email=" + email + "&password=" + password);
+                } catch (e)
+                {
+                    alert("Unable to connect to server");
+                }
+            }
+
+            function getInfo() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var val = this.responseText;
+                    var error = document.getElementById("inva");
+                    if (val == "email") {
+                         error.innerHTML = "Invalid Email";
+                    } else if (val == "password") {
+                        error.innerHTML = "Invalid Password";
+                    } else if (val == "invalid") {
+                        error.innerHTML = "Invalid Email And Password";
+                    } else if (val == "success") {
+                        location.replace("newsfeed.jsp");
+                    }
+                }
             }
         </script>
     </body>

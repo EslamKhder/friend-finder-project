@@ -18,7 +18,7 @@ public class FilterJspPage implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         User user = (User) req.getSession().getAttribute("user");
         if (user == null) {
-            res.sendRedirect("Log_In.html");
+            res.sendRedirect("Log_In.jsp");
         } else {
             chain.doFilter(request, response);
         }

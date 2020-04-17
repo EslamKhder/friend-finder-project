@@ -24,9 +24,11 @@ public class logIn extends HttpServlet {
                 password = request.getParameter("password").trim();
         Connection connection = (Connection) getServletContext().getAttribute("Connect");
         if (email.isEmpty() || !(valEmail(email))) {
-            response.sendRedirect("View/friend-finder/Log_In.jsp?error=email");
+            response.getWriter().print("email");
+            //response.sendRedirect("View/friend-finder/Log_In.jsp?error=email");
         } else if (password.isEmpty()) {
-            response.sendRedirect("View/friend-finder/Log_In.jsp?error=password");
+            response.getWriter().print("passwrd");
+            //response.sendRedirect("View/friend-finder/Log_In.jsp?error=password");
         } else {
             User user = new User();
             user.setEmail(email);
@@ -35,7 +37,8 @@ public class logIn extends HttpServlet {
             userservices.setConnection(connection);
             user = userservices.getUser(user);
             if (user.getId() == 0) {
-                response.sendRedirect("View/friend-finder/Log_In.jsp?error=invalid");
+                response.getWriter().print("invalid");
+                //response.sendRedirect("View/friend-finder/Log_In.jsp?error=invalid");
             } else if (email.equals(user.getEmail()) && password.equals(user.getPassword())) {
                 Cookie c1 = new Cookie("email", email);
                 Cookie c2 = new Cookie("password", password);
@@ -44,7 +47,8 @@ public class logIn extends HttpServlet {
                 response.addCookie(c1);
                 response.addCookie(c2);
                 request.getSession().setAttribute("user", user);
-                response.sendRedirect("View/friend-finder/newsfeed.jsp");
+                response.getWriter().print("success");
+                //response.sendRedirect("View/friend-finder/newsfeed.jsp");
             }
         }
     }

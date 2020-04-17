@@ -28,21 +28,23 @@
             User user = new User();
             user.setId(0);
             Cookie[] cookies = request.getCookies();
-            for (int i = 0; i < cookies.length; i++) {
-                if (cookies[i].getName().equals("email")) {
-                    user.setEmail(cookies[i].getValue());
+            if (cookies != null) {
+                for (int i = 0; i < cookies.length; i++) {
+                    if (cookies[i].getName().equals("email")) {
+                        user.setEmail(cookies[i].getValue());
+                    }
+                    if (cookies[i].getName().equals("password")) {
+                        user.setPassword(cookies[i].getValue());
+                    }
                 }
-                if (cookies[i].getName().equals("password")) {
-                    user.setPassword(cookies[i].getValue());
+                Connection connection = (Connection) getServletContext().getAttribute("Connect");
+                UserServices userservices = new UserServices();
+                userservices.setConnection(connection);
+                user = userservices.getUser(user);
+                if (user.getId() != 0) {
+                    request.getSession().setAttribute("user", user);
+                    response.sendRedirect("newsfeed.jsp");
                 }
-            }
-            Connection connection = (Connection) getServletContext().getAttribute("Connect");
-            UserServices userservices = new UserServices();
-            userservices.setConnection(connection);
-            user = userservices.getUser(user);
-            if (user.getId()!= 0) {
-                request.getSession().setAttribute("user", user);
-                response.sendRedirect("newsfeed.jsp");
             }
         %>
         <!-- Header
@@ -130,34 +132,33 @@
                     <div class="line-divider"></div>
                     <div class="form-wrapper">
                         <p class="signup-text">Signup now and meet awesome people around the world</p>
-                        <form action="../../NewAccount" method="POST">
+                        <form>
                             <fieldset class="form-group">
-                                <input type="text" required name="fullname" class="form-control" minlength="6" id="example-name" placeholder="Enter name" autofocus>
+                                <input type="text" required id="fullname" class="form-control" minlength="6" id="example-name" placeholder="Enter name" autofocus>
                             </fieldset>
                             <div id="N"></div>
                             <fieldset class="form-group">
-                                <input type="email" required name="email" class="form-control" id="example-email" placeholder="Enter email" >
+                                <input type="email" required id="email" class="form-control" id="example-email" placeholder="Enter email" >
                             </fieldset>
                             <div id="E"></div>
                             <fieldset class="form-group">
-                                <input type="password" required name="password" class="form-control" minlength="10" id="example-password" placeholder="Enter a password" pattern="[A-Za-z0-9]{10,}" title="must include length(10) at least">
+                                <input type="password" required id="password" class="form-control" minlength="10" id="example-password" placeholder="Enter a password" pattern="[A-Za-z0-9]{10,}" title="must include length(10) at least">
                             </fieldset>
                             <div id="P"></div>
                             <fieldset class="form-group">
-                                <input type="text" required name="job" class="form-control" minlength="5" id="example-password" pattern="[A-Za-z]{1,}" placeholder="Enter Your Job">
+                                <input type="text" required id="job" class="form-control" minlength="5" id="example-password" pattern="[A-Za-z]{1,}" placeholder="Enter Your Job">
                             </fieldset>
                             <div id="J"></div>
                             <fieldset class="form-group">
-                                <input type="text" required name="distance" class="form-control" id="example-password" placeholder="Enter Your distance in K_M" pattern="[0-9]{1,}" title="must include only Number">
+                                <input type="text" required id="distance" class="form-control" id="example-password" placeholder="Enter Your distance in K_M" pattern="[0-9]{1,}" title="must include only Number">
                             </fieldset>
                             <div id="D"></div>
-                            <button class="btn-secondary">Signup</button>
                         </form>
+                        <button class="btn-secondary" onclick="create()">Signup</button>
                     </div>
                     <a href="Log_In.jsp">Already have an account?</a>
                     <img class="form-shadow" src="images/bottom-shadow.png" alt="" />
                 </div><!-- Sign Up Form End -->
-
 
                 <svg class="arrows hidden-xs hidden-sm">
                 <path class="a1" d="M0 0 L30 32 L60 0"></path>
@@ -418,13 +419,88 @@
             } else if (val == "password") {
                 document.getElementById("P").innerHTML = "Invalid Password";
             } else if (val == "job") {
-                document.getElementById("J").innerHTML = "Invalid Email And Password";
+                document.getElementById("J").innerHTML = "Invalid Job";
             } else if (val == "name") {
                 document.getElementById("N").innerHTML = "Invalid NAME";
             } else if (val == "distance") {
                 document.getElementById("D").innerHTML = "Invalid Distance";
             }
         </script>
+        <script>
+            var request;
+            var fullname,email,password,job,distance;
+            function create()
+            {
+                email = document.getElementById("email").value,
+                password  = document.getElementById("password").value,
+                fullname = document.getElementById("fullname").value,
+                job  = document.getElementById("job").value,
+                distance = document.getElementById("distance").value;
+                var url = "../../NewAccount";
+                if (window.XMLHttpRequest) {
+                    request = new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    request = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                try
+                {
+                    request.onreadystatechange = getInfo;
+                    request.open("post", url, true);
+                    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    request.send("fullname=" + fullname + "&email=" + email + "&password=" + password + "&job=" + job + "&distance=" + distance);
+                } catch (e)
+                {
+                    alert("Unable to connect to server");
+                }
+            }
 
+            function getInfo() {
+                var e = document.getElementById("E"),
+                    p = document.getElementById("P"),
+                    j = document.getElementById("J"),
+                    n = document.getElementById("N"),
+                    d = document.getElementById("D");
+                if (this.readyState == 4 && this.status == 200) {
+                    var val = this.responseText;
+                    if (val == "email") {
+                        e.innerHTML = "Invalid Email";
+                        p.innerHTML = "";
+                        j.innerHTML = "";
+                        n.innerHTML = "";
+                        d.innerHTML = "";
+                    } else if (val == "password") {
+                        p.innerHTML = "Invalid Password";
+                        e.innerHTML = "";
+                        j.innerHTML = "";
+                        n.innerHTML = "";
+                        d.innerHTML = "";
+                    } else if (val == "job") {
+                        j.innerHTML = "Invalid Job";
+                        e.innerHTML = "";
+                        p.innerHTML = "";
+                        n.innerHTML = "";
+                        d.innerHTML = "";
+                    } else if (val == "name") {
+                        n.innerHTML = "Invalid NAME";
+                        e.innerHTML = "";
+                        p.innerHTML = "";
+                        j.innerHTML = "";
+                        d.innerHTML = "";
+                    } else if (val == "distance") {
+                        d.innerHTML = "Invalid Distance";
+                        e.innerHTML = "";
+                        p.innerHTML = "";
+                        j.innerHTML = "";
+                        n.innerHTML = "";
+                    } else if (val == "success") {
+                        location.replace("newsfeed.jsp");
+                    }
+                }
+            }
+            function clear(){
+                
+                e.innerHTML = "";
+            }
+        </script>
     </body>
 </html>

@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author Eng Eslam khder
@@ -30,7 +31,7 @@ public class addComment extends HttpServlet {
             post.setIdpost(Integer.parseInt(idpost));
             CommentServices commentservices = new CommentServices();
             commentservices.setConnection(connection);
-            commentservices.addComment(user, post, comment);
+            int res = commentservices.addComment(user, post, comment);
             response.sendRedirect("View/friend-finder/newsfeed.jsp");
         }
     }
