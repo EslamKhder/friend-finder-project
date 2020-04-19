@@ -401,8 +401,6 @@
         <div id="spinner-wrapper">
             <div class="spinner"></div>
         </div>
-        <div id="res"><%=request.getParameter("error")%></div>
-
         <!-- Scripts
         ================================================= -->
         <script src="js/jquery-3.1.1.min.js"></script>

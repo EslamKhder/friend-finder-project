@@ -27,7 +27,7 @@ public class logIn extends HttpServlet {
             response.getWriter().print("email");
             //response.sendRedirect("View/friend-finder/Log_In.jsp?error=email");
         } else if (password.isEmpty()) {
-            response.getWriter().print("passwrd");
+            response.getWriter().print("password");
             //response.sendRedirect("View/friend-finder/Log_In.jsp?error=password");
         } else {
             User user = new User();

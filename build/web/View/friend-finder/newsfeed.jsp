@@ -302,21 +302,21 @@
                                                 <img src="images/users/user-11.jpg" alt="" class="profile-photo-sm" />
                                                 <p><a href="timeline.html" class="profile-link"><%=usercomment.getName()%> </a><i class="em em-laughing"></i>
                                                     <!-- Display Comment of Post-->
-                                                    ${com.getComment()}
+                                                    <i>${com.getComment()}</i>
                                                 </p>
                                             </div>
                                             <!--Remove Objects (JSTL TAGLB) -->   
                                             <c:remove var="usercomment"/>
                                         </c:forEach>
-                                        <div id="incom"></div>
-                                        <form action="../../addComment">
+                                            <div class="post-comment" id="newscomment${post.getIdpost()}"></div>
+                                        <form>
                                             <div class="post-comment">
                                                 <img src="images/users/user-1.jpg" alt="" class="profile-photo-sm" />
-                                                <input type="text" name="comment" class="form-control" placeholder="Post a comment" />
-                                                <input name="id" type="hidden" value="${post.getIdpost()}" />
-                                                <input class="done" type="submit" value="done" />
+                                                <input type="text" id="comment${post.getIdpost()}" class="form-control" placeholder="Write Comment" />
+                                                <div id="commenterror${post.getIdpost()}"></div>
                                             </div>
                                         </form>
+                                        <button class="done" onclick='sendComment(${post.getIdpost()},"<%=user.getName()%>")'>Done</button>
                                     </div>
                                 </div>
                             </div>

@@ -1,5 +1,4 @@
 package servlets;
-
 import DataBaseFiles.ServicesImplementation.CommentServices;
 import Model.Post;
 import Model.User;
@@ -9,11 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-/**
- *
- * @author Eng Eslam khder
- */
 public class addComment extends HttpServlet {
 
     @Override
@@ -22,17 +16,16 @@ public class addComment extends HttpServlet {
         String comment = request.getParameter("comment"),
                 idpost = request.getParameter("id");
         if (comment.isEmpty()) {
-            response.sendRedirect("View/friend-finder/newsfeed.jsp");
+            response.getWriter().print("comment");
         } else {
-            User user = null;
-            user = (User) request.getSession().getAttribute("user");
+            User user = (User) request.getSession().getAttribute("user");
             Connection connection = (Connection) getServletContext().getAttribute("Connect");
             Post post = new Post();
             post.setIdpost(Integer.parseInt(idpost));
             CommentServices commentservices = new CommentServices();
             commentservices.setConnection(connection);
             int res = commentservices.addComment(user, post, comment);
-            response.sendRedirect("View/friend-finder/newsfeed.jsp");
+            response.getWriter().print("success");
         }
     }
 }

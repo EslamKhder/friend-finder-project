@@ -37,4 +37,10 @@ function getInfo() {
             location.replace("newsfeed.jsp");
         }
     }
+    clear();
+}
+function clear(){
+    setTimeout(function () {
+        document.getElementById("inva").innerHTML = "";
+    }, 2000);
 }

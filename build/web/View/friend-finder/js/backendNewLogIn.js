@@ -25,47 +25,36 @@ function create()
         alert("Unable to connect to server");
     }
 }
-
+var e = document.getElementById("E"),
+        p = document.getElementById("P"),
+        j = document.getElementById("J"),
+        n = document.getElementById("N"),
+        d = document.getElementById("D");
 function getInfo() {
-    var e = document.getElementById("E"),
-            p = document.getElementById("P"),
-            j = document.getElementById("J"),
-            n = document.getElementById("N"),
-            d = document.getElementById("D");
     if (this.readyState == 4 && this.status == 200) {
         var val = this.responseText;
         if (val == "email") {
             e.innerHTML = "Invalid Email";
-            p.innerHTML = "";
-            j.innerHTML = "";
-            n.innerHTML = "";
-            d.innerHTML = "";
         } else if (val == "password") {
             p.innerHTML = "Invalid Password";
-            e.innerHTML = "";
-            j.innerHTML = "";
-            n.innerHTML = "";
-            d.innerHTML = "";
         } else if (val == "job") {
             j.innerHTML = "Invalid Job";
-            e.innerHTML = "";
-            p.innerHTML = "";
-            n.innerHTML = "";
-            d.innerHTML = "";
         } else if (val == "name") {
             n.innerHTML = "Invalid NAME";
-            e.innerHTML = "";
-            p.innerHTML = "";
-            j.innerHTML = "";
-            d.innerHTML = "";
         } else if (val == "distance") {
             d.innerHTML = "Invalid Distance";
-            e.innerHTML = "";
-            p.innerHTML = "";
-            j.innerHTML = "";
-            n.innerHTML = "";
         } else if (val == "success") {
             location.replace("newsfeed.jsp");
         }
     }
+    clear();
+}
+function clear() {
+    setTimeout(function () {
+        d.innerHTML = "";
+        e.innerHTML = "";
+        p.innerHTML = "";
+        j.innerHTML = "";
+        n.innerHTML = "";
+    }, 4000);
 }
