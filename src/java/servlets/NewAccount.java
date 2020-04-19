@@ -27,7 +27,7 @@ public class NewAccount extends HttpServlet {
                 response.getWriter().print("name");
             } else if (password.isEmpty()) {
                 response.getWriter().print("password");
-            } else if (job.isEmpty() || !(Pattern.matches("[a-zA-Z]+", job))) {
+            } else if (job.isEmpty() || !(Pattern.matches("[a-zA-Z ]+", job))) {
                 response.getWriter().print("job");
             } else if (!(valEmail(email)) || email.isEmpty()) {
                 response.getWriter().print("email");

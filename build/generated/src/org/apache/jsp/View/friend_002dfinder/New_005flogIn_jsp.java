@@ -76,21 +76,23 @@ public final class New_005flogIn_jsp extends org.apache.jasper.runtime.HttpJspBa
             User user = new User();
             user.setId(0);
             Cookie[] cookies = request.getCookies();
-            for (int i = 0; i < cookies.length; i++) {
-                if (cookies[i].getName().equals("email")) {
-                    user.setEmail(cookies[i].getValue());
+            if (cookies != null) {
+                for (int i = 0; i < cookies.length; i++) {
+                    if (cookies[i].getName().equals("email")) {
+                        user.setEmail(cookies[i].getValue());
+                    }
+                    if (cookies[i].getName().equals("password")) {
+                        user.setPassword(cookies[i].getValue());
+                    }
                 }
-                if (cookies[i].getName().equals("password")) {
-                    user.setPassword(cookies[i].getValue());
+                Connection connection = (Connection) getServletContext().getAttribute("Connect");
+                UserServices userservices = new UserServices();
+                userservices.setConnection(connection);
+                user = userservices.getUser(user);
+                if (user.getId() != 0) {
+                    request.getSession().setAttribute("user", user);
+                    response.sendRedirect("newsfeed.jsp");
                 }
-            }
-            Connection connection = (Connection) getServletContext().getAttribute("Connect");
-            UserServices userservices = new UserServices();
-            userservices.setConnection(connection);
-            user = userservices.getUser(user);
-            if (user.getId()!= 0) {
-                request.getSession().setAttribute("user", user);
-                response.sendRedirect("newsfeed.jsp");
             }
         
       out.write("\n");
@@ -179,34 +181,33 @@ public final class New_005flogIn_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("                    <div class=\"line-divider\"></div>\n");
       out.write("                    <div class=\"form-wrapper\">\n");
       out.write("                        <p class=\"signup-text\">Signup now and meet awesome people around the world</p>\n");
-      out.write("                        <form action=\"../../NewAccount\" method=\"POST\">\n");
+      out.write("                        <form>\n");
       out.write("                            <fieldset class=\"form-group\">\n");
-      out.write("                                <input type=\"text\" required name=\"fullname\" class=\"form-control\" minlength=\"6\" id=\"example-name\" placeholder=\"Enter name\" autofocus>\n");
+      out.write("                                <input type=\"text\" required id=\"fullname\" class=\"form-control\" minlength=\"6\" id=\"example-name\" placeholder=\"Enter name\" autofocus>\n");
       out.write("                            </fieldset>\n");
       out.write("                            <div id=\"N\"></div>\n");
       out.write("                            <fieldset class=\"form-group\">\n");
-      out.write("                                <input type=\"email\" required name=\"email\" class=\"form-control\" id=\"example-email\" placeholder=\"Enter email\" >\n");
+      out.write("                                <input type=\"email\" required id=\"email\" class=\"form-control\" id=\"example-email\" placeholder=\"Enter email\" >\n");
       out.write("                            </fieldset>\n");
       out.write("                            <div id=\"E\"></div>\n");
       out.write("                            <fieldset class=\"form-group\">\n");
-      out.write("                                <input type=\"password\" required name=\"password\" class=\"form-control\" minlength=\"10\" id=\"example-password\" placeholder=\"Enter a password\" pattern=\"[A-Za-z0-9]{10,}\" title=\"must include length(10) at least\">\n");
+      out.write("                                <input type=\"password\" required id=\"password\" class=\"form-control\" minlength=\"10\" id=\"example-password\" placeholder=\"Enter a password\" pattern=\"[A-Za-z0-9]{10,}\" title=\"must include length(10) at least\">\n");
       out.write("                            </fieldset>\n");
       out.write("                            <div id=\"P\"></div>\n");
       out.write("                            <fieldset class=\"form-group\">\n");
-      out.write("                                <input type=\"text\" required name=\"job\" class=\"form-control\" minlength=\"5\" id=\"example-password\" pattern=\"[A-Za-z]{1,}\" placeholder=\"Enter Your Job\">\n");
+      out.write("                                <input type=\"text\" required id=\"job\" class=\"form-control\" minlength=\"5\" id=\"example-password\" pattern=\"[A-Za-z]{1,}\" placeholder=\"Enter Your Job\">\n");
       out.write("                            </fieldset>\n");
       out.write("                            <div id=\"J\"></div>\n");
       out.write("                            <fieldset class=\"form-group\">\n");
-      out.write("                                <input type=\"text\" required name=\"distance\" class=\"form-control\" id=\"example-password\" placeholder=\"Enter Your distance in K_M\" pattern=\"[0-9]{1,}\" title=\"must include only Number\">\n");
+      out.write("                                <input type=\"text\" required id=\"distance\" class=\"form-control\" id=\"example-password\" placeholder=\"Enter Your distance in K_M\" pattern=\"[0-9]{1,}\" title=\"must include only Number\">\n");
       out.write("                            </fieldset>\n");
       out.write("                            <div id=\"D\"></div>\n");
-      out.write("                            <button class=\"btn-secondary\">Signup</button>\n");
       out.write("                        </form>\n");
+      out.write("                        <button class=\"btn-secondary\" onclick=\"create()\">Signup</button>\n");
       out.write("                    </div>\n");
       out.write("                    <a href=\"Log_In.jsp\">Already have an account?</a>\n");
       out.write("                    <img class=\"form-shadow\" src=\"images/bottom-shadow.png\" alt=\"\" />\n");
       out.write("                </div><!-- Sign Up Form End -->\n");
-      out.write("\n");
       out.write("\n");
       out.write("                <svg class=\"arrows hidden-xs hidden-sm\">\n");
       out.write("                <path class=\"a1\" d=\"M0 0 L30 32 L60 0\"></path>\n");
@@ -462,21 +463,7 @@ public final class New_005flogIn_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("        <script src=\"js/jquery.appear.min.js\"></script>\n");
       out.write("        <script src=\"js/jquery.incremental-counter.js\"></script>\n");
       out.write("        <script src=\"js/script.js\"></script>\n");
-      out.write("        <script>\n");
-      out.write("            var val = document.getElementById(\"res\").innerHTML;\n");
-      out.write("            if (val == \"email\") {\n");
-      out.write("                document.getElementById(\"E\").innerHTML = \"Invalid Email\";\n");
-      out.write("            } else if (val == \"password\") {\n");
-      out.write("                document.getElementById(\"P\").innerHTML = \"Invalid Password\";\n");
-      out.write("            } else if (val == \"job\") {\n");
-      out.write("                document.getElementById(\"J\").innerHTML = \"Invalid Email And Password\";\n");
-      out.write("            } else if (val == \"name\") {\n");
-      out.write("                document.getElementById(\"N\").innerHTML = \"Invalid NAME\";\n");
-      out.write("            } else if (val == \"distance\") {\n");
-      out.write("                document.getElementById(\"D\").innerHTML = \"Invalid Distance\";\n");
-      out.write("            }\n");
-      out.write("        </script>\n");
-      out.write("\n");
+      out.write("        <script src=\"js/backendNewLogIn.js\"></script>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

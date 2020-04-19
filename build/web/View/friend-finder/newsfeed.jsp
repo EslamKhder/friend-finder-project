@@ -1,9 +1,3 @@
-<%-- 
-    Document   : newsfeed
-    Created on : Mar 15, 2020, 6:37:49 PM
-    Author     : Eng Eslam khder
---%>
-
 <%@page import="Controller.RelationControl"%>
 <%@page import="Controller.LikeControl"%>
 <%@page import="Controller.CommentControl"%>
@@ -62,52 +56,7 @@
             margin-right: 3px
         }
     </style>
-    <!--
-    <script>
-            var request;
-            function sendComment()
-            {
-                var comment = document.getElementById("comment"%>).value,
-                    id = document.getElementById("id").value;
-                alert(comment);
-                alert(id);
-                var url = "../../addComment?comment=" + comment + "&id=" +  id;
-                if (window.XMLHttpRequest) {
-                    request = new XMLHttpRequest();
-                } else if (window.ActiveXObject) {
-                    request = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-                try
-                {
-                    request.onreadystatechange = getInfo;
-                    request.open("GET", url, true);
-                    request.send();
-                } catch (e)
-                {
-                    alert("Unable to connect to server");
-                }
-            }
 
-            function getInfo() {
-                if (this.readyState == 4 && this.status == 200) {
-                    var val = this.responseXML;
-                    alert(val);
-                    var res = val.getElementsByTagName("res")[0].text;
-                    alert(res);
-                    //document.getElementById("amit").innerHTML = val;
-                    //alert(val);
-                    if(res == "1"){
-                        //document.getElementById("amit").innerHTML = "INVALID";
-                    } else {
-                        document.getElementById("incom").innerHTML = "INVALID Comment"
-                        //location.replace("info.jsp");
-                    }
-                } esle {
-                    alert("no");
-                }
-            }
-        </script>
-        -->
     <body>
 
         <!-- Header
@@ -166,7 +115,7 @@
                                     <li><a href="timeline-album.html">Timeline Album</a></li>
                                     <li><a href="timeline-friends.html">Timeline Friends</a></li>
                                     <li><a href="contact.html">Contact Us</a></li>
-                                    
+
                                 </ul>
                             </li>
                             <li class="dropdown"><a href="contact.html">Contact</a></li>
@@ -323,7 +272,7 @@
                                             <p class="text-muted">Published a photo about 3 mins ago</p>
                                         </div>
                                         <div class="reaction">
-                                            <a href="../../addLike?id=${post.getIdpost()}" class="btn text-green"><i class="icon ion-thumbsup"></i> <%=likecontrol.numberLikes(Postid)%></a>
+                                            <a  onclick="sendLike(<%=Postid.getIdpost()%>)" class="btn text-green"><i class="icon ion-thumbsup"></i><i id="likes<%=Postid.getIdpost()%>"><%=likecontrol.numberLikes(Postid)%></i></a>
                                         </div>
                                         <div class="line-divider"></div>
                                         <div class="post-text">
@@ -359,8 +308,8 @@
                                             <!--Remove Objects (JSTL TAGLB) -->   
                                             <c:remove var="usercomment"/>
                                         </c:forEach>
-                                            <div id="incom"></div>
-                                            <form action="../../addComment">
+                                        <div id="incom"></div>
+                                        <form action="../../addComment">
                                             <div class="post-comment">
                                                 <img src="images/users/user-1.jpg" alt="" class="profile-photo-sm" />
                                                 <input type="text" name="comment" class="form-control" placeholder="Post a comment" />
@@ -386,7 +335,7 @@
                             relationcontrol.setConnection(connect);
                             friends = relationcontrol.getFriends(user);
                             pageContext.setAttribute("FRINDS", friends);
-                            </jsp:scriptlet>
+                        </jsp:scriptlet>
                         <!-- Foreach to Display All friends of Post (TAGLIB) -->
                         <c:forEach items="${FRINDS}" var="friend">
                             <div class="col-md-4">
@@ -475,7 +424,7 @@
             <div id="spinner-wrapper">
                 <div class="spinner"></div>
             </div>
-
+            
             <!-- Scripts
             ================================================= -->
             <script src="js/jquery-3.1.1.min.js"></script>
@@ -485,6 +434,6 @@
             <script src="js/script.js"></script>
 
             <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTMXfmDn0VlqWIyoOxK8997L-amWbUPiQ&callback=initMap"></script>
-
+            <script src="js/backendnewsfeed.js"></script>
     </body>
 </html>

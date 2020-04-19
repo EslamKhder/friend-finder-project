@@ -15,9 +15,8 @@ public class addLike extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idpost = request.getParameter("id");
-        User user = null;
-        user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
+        String idpost = request.getParameter("idpo");
         Connection connection = (Connection) getServletContext().getAttribute("Connect");
         Post post = new Post();
         post.setIdpost(Integer.parseInt(idpost));
@@ -26,9 +25,11 @@ public class addLike extends HttpServlet {
         likeservices.setConnection(connection);
         if (likeservices.checkLike(post) == 1) {
             likeservices.removeLike(user, post);
+            response.getWriter().print("remove");
         } else {
             likeservices.addLike(user, post);
+            response.getWriter().print("add");
         }
-        response.sendRedirect("View/friend-finder/newsfeed.jsp");
+        //response.sendRedirect("View/friend-finder/newsfeed.jsp");
     }
 }
