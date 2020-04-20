@@ -5,6 +5,7 @@
  */
 package servlets.Filters;
 
+import Model.User;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -15,25 +16,28 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Eng Eslam khder
  */
-public class LoginNewaccFilter implements Filter {
-
+public class AddCommentFilter implements Filter {
+    
+  @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain)
-            throws IOException, ServletException {
-        HttpServletResponse r = (HttpServletResponse) response;
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        if (email == null || password == null) {
-            r.sendRedirect("View/friend-finder/Log_In.jsp");
+            FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        User user = (User) req.getSession().getAttribute("user");
+        String comment = request.getParameter("comment"),
+                    idpost = request.getParameter("id");
+        if (user == null || idpost == null || comment == null) {
+            res.sendRedirect("View/friend-finder/Log_In.jsp");
         } else {
             chain.doFilter(request, response);
         }
     }
+    
 }
