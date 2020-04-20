@@ -25,6 +25,7 @@ function login()
 
 function getInfo() {
     if (this.readyState == 4 && this.status == 200) {
+        
         var val = this.responseText;
         var error = document.getElementById("inva");
         if (val == "email") {

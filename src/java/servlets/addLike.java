@@ -15,21 +15,26 @@ public class addLike extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
-        String idpost = request.getParameter("idpo");
-        Connection connection = (Connection) getServletContext().getAttribute("Connect");
-        Post post = new Post();
-        post.setIdpost(Integer.parseInt(idpost));
-        post.setIduser(user.getId());
-        LikeServices likeservices = new LikeServices();
-        likeservices.setConnection(connection);
-        if (likeservices.checkLike(post) == 1) {
-            likeservices.removeLike(user, post);
-            response.getWriter().print("remove");
-        } else {
-            likeservices.addLike(user, post);
-            response.getWriter().print("add");
+        try {
+            User user = (User) request.getSession().getAttribute("user");
+            String idpost = request.getParameter("idpo");
+            Connection connection = (Connection) getServletContext().getAttribute("Connect");
+            Post post = new Post();
+            post.setIdpost(Integer.parseInt(idpost));
+            post.setIduser(user.getId());
+            LikeServices likeservices = new LikeServices();
+            likeservices.setConnection(connection);
+            if (likeservices.checkLike(post) == 1) {
+                likeservices.removeLike(user, post);
+                response.getWriter().print("remove");
+            } else {
+                likeservices.addLike(user, post);
+                response.getWriter().print("add");
+            }
+        } catch (Exception e) {
+            response.sendRedirect("View/friend-finder/Log_In.jsp");
         }
+        
         //response.sendRedirect("View/friend-finder/newsfeed.jsp");
     }
 }

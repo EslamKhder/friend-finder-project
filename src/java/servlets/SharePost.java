@@ -37,8 +37,8 @@ public class SharePost extends HttpServlet {
                     response.sendRedirect("View/friend-finder/newsfeed.jsp");
                 }
             }
-        } catch (IOException e) {
-            response.sendRedirect("View/friend-finder/newsfeed.jsp");
+        } catch (Exception e) {
+            response.sendRedirect("View/friend-finder/Log_In.jsp");
         }
     }
 }
