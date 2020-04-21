@@ -2,43 +2,31 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <filter>
         <filter-name>FilterJspPage</filter-name>
-        <filter-class>servlets.Filters.NewsfeedFilter</filter-class>
+        <filter-class>servlets.Filters.FilterJspPage</filter-class>
     </filter>
     <filter>
         <filter-name>ServletFilter</filter-name>
-        <filter-class>servlets.Filters.LoginNewAccFilter</filter-class>
+        <filter-class>servlets.Filters.LoginNewaccFilter</filter-class>
     </filter>
     <filter>
-        <filter-name>AddLikeFilter</filter-name>
-        <filter-class>servlets.Filters.AddLikeFilter</filter-class>
-    </filter>
-    <filter>
-        <filter-name>AddCommentFilter</filter-name>
-        <filter-class>servlets.Filters.AddCommentFilter</filter-class>
-    </filter>
-    <filter>
-        <filter-name>AddFriendFilter</filter-name>
-        <filter-class>servlets.Filters.AddFriendFilter</filter-class>
-    </filter>
-    <filter>
-        <filter-name>SharePostFilter</filter-name>
-        <filter-class>servlets.Filters.SharePostFilter</filter-class>
+        <filter-name>ServletsFilter</filter-name>
+        <filter-class>servlets.Filters.ServletsFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>SharePostFilter</filter-name>
-        <servlet-name>SharePost</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AddFriendFilter</filter-name>
+        <filter-name>ServletsFilter</filter-name>
         <servlet-name>addfriend</servlet-name>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>AddCommentFilter</filter-name>
+        <filter-name>ServletsFilter</filter-name>
         <servlet-name>addComment</servlet-name>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>AddLikeFilter</filter-name>
+        <filter-name>ServletsFilter</filter-name>
         <servlet-name>addLike</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ServletsFilter</filter-name>
+        <servlet-name>SharePost</servlet-name>
     </filter-mapping>
     <filter-mapping>
         <filter-name>ServletFilter</filter-name>
@@ -52,13 +40,17 @@
         <filter-name>FilterJspPage</filter-name>
         <servlet-name>newsfeed</servlet-name>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>ServletsFilter</filter-name>
+        <servlet-name>LogOut</servlet-name>
+    </filter-mapping>
     <listener>
         <description>ServletContextListener</description>
         <listener-class>servlets.ListenerConnection</listener-class>
     </listener>
     <listener>
         <description>ServletContextListener</description>
-        <listener-class>servlets.Filters.LoginNewAccFilter</listener-class>
+        <listener-class>servlets.Filters.LoginNewaccFilter</listener-class>
     </listener>
     <servlet>
         <servlet-name>NewAccount</servlet-name>

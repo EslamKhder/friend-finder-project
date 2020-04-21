@@ -3,7 +3,6 @@ package servlets;
 import Controller.DatabaseControl;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.swing.JOptionPane;
 
 /**
  * Web application lifecycle listener.

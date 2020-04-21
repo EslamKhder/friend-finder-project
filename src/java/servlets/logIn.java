@@ -48,6 +48,7 @@ public class logIn extends HttpServlet {
             }
         }
     }
+
     public boolean valEmail(String input) {
         String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,3}$";
         Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import java.io.IOException;
@@ -23,6 +18,7 @@ public class LogOut extends HttpServlet {
             throws ServletException, IOException {
         Cookie c1 = new Cookie("email", "");
         Cookie c2 = new Cookie("password", "");
+        request.getSession().removeAttribute("user");
         c1.setMaxAge(0);
         c2.setMaxAge(0);
         response.addCookie(c1);
