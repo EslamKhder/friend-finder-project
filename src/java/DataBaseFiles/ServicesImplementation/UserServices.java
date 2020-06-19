@@ -24,6 +24,7 @@ public class UserServices implements UserService {
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
+    
     // Get User ID
     @Override
     public int getUserId(User user){
@@ -43,6 +44,7 @@ public class UserServices implements UserService {
         }
         return id;
     }
+    
     // Add User To Data Base
     @Override
     public int add(User user) {
@@ -56,6 +58,8 @@ public class UserServices implements UserService {
             preparedstatement.setInt(5, user.getDistance());
             result = preparedstatement.executeUpdate();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error Because " + e.toString(),
+                    "Connection Error", JOptionPane.ERROR_MESSAGE);
             return 0;
         }
         return result;

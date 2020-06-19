@@ -172,7 +172,7 @@
 
                         <!-- Post Create Box
                                      ================================================= -->
-                        <form action="../../SharePost" method="POST">
+                        <form action="../../SharePost" method="get">
                             <div class="create-post">
                                 <div class="row">
                                     <div class="col-md-7 col-sm-7">

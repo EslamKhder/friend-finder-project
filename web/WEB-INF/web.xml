@@ -6,7 +6,7 @@
     </filter>
     <filter>
         <filter-name>ServletFilter</filter-name>
-        <filter-class>servlets.Filters.LoginNewaccFilter</filter-class>
+        <filter-class>servlets.Filters.LoginNewAccFilter</filter-class>
     </filter>
     <filter>
         <filter-name>ServletsFilter</filter-name>
@@ -47,10 +47,6 @@
     <listener>
         <description>ServletContextListener</description>
         <listener-class>servlets.ListenerConnection</listener-class>
-    </listener>
-    <listener>
-        <description>ServletContextListener</description>
-        <listener-class>servlets.Filters.LoginNewaccFilter</listener-class>
     </listener>
     <servlet>
         <servlet-name>NewAccount</servlet-name>
@@ -119,4 +115,7 @@
     <session-config>
         <session-timeout>30000</session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>View/friend-finder/Log_In.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>
