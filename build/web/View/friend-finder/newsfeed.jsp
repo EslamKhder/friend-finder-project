@@ -346,7 +346,7 @@
                                         <div>
                                             <!-- Display Name of Friend -->
                                             <h5><a href="timeline.html">${friend.getName()}</a></h5>
-                                            <a href="../../addfriend?id=${friend.getId()}" class="text-green">Add friend</a>
+                                            <a href="../../addfriend?id=${friend.getId()}" class="text-green">Follow</a>
                                         </div>
                                     </div>
                                 </div>

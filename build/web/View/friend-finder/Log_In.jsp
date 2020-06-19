@@ -11,7 +11,7 @@
         <meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
         <meta name="robots" content="index, follow" />
         <title>Friend Finder | A Complete Social Network Template</title>
-
+        
         <!-- Stylesheets
         ================================================= -->
         <link rel="stylesheet" href="css/bootstrap.min.css" />

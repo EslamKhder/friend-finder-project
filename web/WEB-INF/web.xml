@@ -116,6 +116,6 @@
         <session-timeout>30000</session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>View/friend-finder/Log_In.jsp</welcome-file>
+        <welcome-file>View/friend-finder/Start.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

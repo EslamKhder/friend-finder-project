@@ -7,12 +7,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -37,8 +34,7 @@ public class DataBaseConnection implements DatabaseService {
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(
                     URL, USERNAME, PASSWORD);
-            String aSQLScriptFilePath ="C:\\Users\\Eng Eslam khder\\Documents\\NetBeansProjects\\friend-project\\Table\\AllTable.sql";
-            
+            String aSQLScriptFilePath ="C:\\Users\\Eng Eslam khder\\Documents\\NetBeansProjects\\friend-project\\resources\\scripttables.sql";
             // Initialize object for ScripRunner
             ScriptRunner sr = new ScriptRunner(connection, false, false);
             // Give the input file to Reader
