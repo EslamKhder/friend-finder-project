@@ -10,6 +10,8 @@
         <meta name="description" content="This is social network html5 template available in themeforest......" />
         <meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
         <meta name="robots" content="index, follow" />
+        <meta name="google-signin-client_id" content="998943596311-obsidja2lv2ji22da2lkec0ajg6a6p4i.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
         <title>Friend Finder | A Complete Social Network Template</title>
         
         <!-- Stylesheets
@@ -152,6 +154,7 @@
                             </fieldset>
                             <div id="inva"></div>
                             <a href="New_logIn.jsp" class="create">Create New Account?</a>
+                            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark">Sign in</div>
                         </form>
                         <button class="btn-secondary create"  onclick="login()">Log In</button>
                     </div>
@@ -409,5 +412,21 @@
         <script src="js/jquery.incremental-counter.js"></script>
         <script src="js/script.js"></script>
         <script src="js/backendLogIn.js"></script>
+        <script>
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      }
+    </script>
     </body>
 </html>
