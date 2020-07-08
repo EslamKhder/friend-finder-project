@@ -7,7 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -40,8 +41,7 @@ public class RelationServices implements RelationService {
                 result = 0;
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.toString(),
-                    "Connection Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, e);
         }
         return result;
     }
@@ -67,8 +67,7 @@ public class RelationServices implements RelationService {
                 users.add(user);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.toString(),
-                    "Connection Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, e);
         }
         return users;
     }
@@ -83,8 +82,7 @@ public class RelationServices implements RelationService {
             preparedstatement.setInt(2, user2.getId());
             result = preparedstatement.executeUpdate();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, e);
         }
         return result;
     }

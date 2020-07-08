@@ -4,8 +4,6 @@ import DataBaseFiles.ServicesInterface.DatabaseService;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -45,15 +43,10 @@ public class DataBaseConnection implements DatabaseService {
             URL = "jdbc:mysql://localhost:3306/frindfrinder";
             connection = DriverManager.getConnection(
                     URL, USERNAME, PASSWORD);
-        } catch (ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Connection Error Because " + e.toString(),
-                    "Connection Error", JOptionPane.ERROR_MESSAGE);
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Error Because " + ex.toString(),
-                    "Connection Error", JOptionPane.ERROR_MESSAGE);
+        } catch (FileNotFoundException | ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataBaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Error : " + ex.toString());
+            //JOptionPane.showMessageDialog(null, "Error : " + ex.toString());
             Logger.getLogger(DataBaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return connection;

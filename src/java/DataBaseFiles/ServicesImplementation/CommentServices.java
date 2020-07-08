@@ -9,7 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -39,8 +40,7 @@ public class CommentServices implements CommentService {
             preparedstatement.setString(3, comment);
             result = preparedstatement.executeUpdate();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(DataBaseConnection.class.getName()).log(Level.SEVERE, null, e);
         }
         return result;
     }
@@ -62,8 +62,7 @@ public class CommentServices implements CommentService {
                 comments.add(comment);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.toString(),
-                    "Connection Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(DataBaseConnection.class.getName()).log(Level.SEVERE, null, e);
         }
         return comments;
     }

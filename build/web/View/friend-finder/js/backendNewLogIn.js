@@ -31,19 +31,21 @@ var e = document.getElementById("E"),
         n = document.getElementById("N"),
         d = document.getElementById("D");
 function getInfo() {
-    if (this.readyState == 4 && this.status == 200) {
+    if (this.readyState === 4 && this.status === 200) {
         var val = this.responseText;
-        if (val == "email") {
+        if (val === "email") {
             e.innerHTML = "Invalid Email";
-        } else if (val == "password") {
+        }if (val === "emailexist") {
+            e.innerHTML = "Email Is Exist";
+        } else if (val === "password") {
             p.innerHTML = "Invalid Password";
-        } else if (val == "job") {
+        } else if (val === "job") {
             j.innerHTML = "Invalid Job";
-        } else if (val == "name") {
+        } else if (val === "name") {
             n.innerHTML = "Invalid NAME";
-        } else if (val == "distance") {
+        } else if (val === "distance") {
             d.innerHTML = "Invalid Distance";
-        } else if (val == "success") {
+        } else if (val === "success") {
             location.replace("newsfeed.jsp");
         }
     }

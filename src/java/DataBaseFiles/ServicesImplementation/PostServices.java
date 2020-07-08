@@ -9,7 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -39,8 +40,7 @@ public class PostServices implements PostService {
             preparedstatement.setString(3, post.getImage());
             result = preparedstatement.executeUpdate();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, e);
         }
         return result;
     }
@@ -58,8 +58,7 @@ public class PostServices implements PostService {
                 list.add(resultset.getInt(1));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.toString(),
-                    "Connection Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, e);
         }
         return list;
     }
@@ -98,8 +97,7 @@ public class PostServices implements PostService {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because 1" + e.toString(),
-                    "Connection Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, e);
         }
         return posts;
     }

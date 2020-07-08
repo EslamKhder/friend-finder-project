@@ -153,8 +153,9 @@
                                 <input type="password" required id="password" class="form-control" minlength="10" id="example-password" placeholder="Enter a password" pattern="[A-Za-z0-9]{10,}" title="must include length(10) at least">
                             </fieldset>
                             <div id="inva"></div>
-                            <a href="New_logIn.jsp" class="create">Create New Account?</a>
                             <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark">Sign in</div>
+                            <a href="New_logIn.jsp" class="create">Create New Account?</a>
+                            
                         </form>
                         <button class="btn-secondary create"  onclick="login()">Log In</button>
                     </div>
@@ -412,21 +413,6 @@
         <script src="js/jquery.incremental-counter.js"></script>
         <script src="js/script.js"></script>
         <script src="js/backendLogIn.js"></script>
-        <script>
-      function onSignIn(googleUser) {
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
-
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-      }
-    </script>
+        <script src="js/signIn-withGoogle.js"></script>
     </body>
 </html>

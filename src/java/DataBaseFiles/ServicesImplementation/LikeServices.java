@@ -7,8 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Eng Eslam khder
@@ -36,8 +36,7 @@ public class LikeServices implements Likeservice {
             preparedstatement.setInt(2, post.getIdpost());
             result = preparedstatement.executeUpdate();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, e);
         }
         return result;
     }
@@ -56,8 +55,7 @@ public class LikeServices implements Likeservice {
                 result = 0;
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.toString(),
-                    "Connection Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, e);
         }
         return result;
     }
@@ -77,8 +75,7 @@ public class LikeServices implements Likeservice {
                 result = 0;
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.toString(),
-                    "Connection Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, e);
         }
         return result;
     }
@@ -93,8 +90,7 @@ public class LikeServices implements Likeservice {
             preparedstatement.setInt(2, post.getIdpost());
             result = preparedstatement.executeUpdate();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, e);
         }
         return result;
     }

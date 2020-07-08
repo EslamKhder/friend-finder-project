@@ -6,7 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -38,9 +39,8 @@ public class UserServices implements UserService {
             if (resultset.next()) {
                 id = resultset.getInt(1);
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.toString(),
-                    "Connection Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, ex);
         }
         return id;
     }
@@ -57,10 +57,8 @@ public class UserServices implements UserService {
             preparedstatement.setString(4, user.getJob());
             preparedstatement.setInt(5, user.getDistance());
             result = preparedstatement.executeUpdate();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.toString(),
-                    "Connection Error", JOptionPane.ERROR_MESSAGE);
-            return 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
@@ -82,9 +80,8 @@ public class UserServices implements UserService {
                 user.setJob(resultset.getString(5));
                 user.setDistance(resultset.getInt(6));
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.toString(),
-                    "Connection Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, ex);
         }
         return user;
     }
@@ -100,12 +97,10 @@ public class UserServices implements UserService {
             if (resultset.next()) {
                 user.setName(resultset.getString(1));
             } else {
-                JOptionPane.showMessageDialog(null, "Invalid email and Password",
-                        "Connection Error", JOptionPane.INFORMATION_MESSAGE);
+                return null;
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error Because " + e.toString(),
-                    "Connection Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, ex);
         }
         return user;
     }

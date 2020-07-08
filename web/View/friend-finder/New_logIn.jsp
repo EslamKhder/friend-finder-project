@@ -11,7 +11,10 @@
         <meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
         <meta name="robots" content="index, follow" />
         <title>Friend Finder | A Complete Social Network Template</title>
-
+        
+        <meta name="google-signin-client_id" content="998943596311-obsidja2lv2ji22da2lkec0ajg6a6p4i.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        
         <!-- Stylesheets
         ================================================= -->
         <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -153,6 +156,7 @@
                                 <input type="text" required id="distance" class="form-control" id="example-password" placeholder="Enter Your distance in K_M" pattern="[0-9]{1,}" title="must include only Number">
                             </fieldset>
                             <div id="D"></div>
+                            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark">Sign in</div>
                         </form>
                         <button class="btn-secondary" onclick="create()">Signup</button>
                     </div>
@@ -413,5 +417,6 @@
         <script src="js/jquery.incremental-counter.js"></script>
         <script src="js/script.js"></script>
         <script src="js/backendNewLogIn.js"></script>
+        <script src="js/createAccount-withGoogle.js"></script>
     </body>
 </html>
