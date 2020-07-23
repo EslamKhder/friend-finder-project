@@ -223,8 +223,10 @@
                             <!-- Set Variable (JSTL TAGLB) -->
                             <c:set var="image" value="${post.getImage()}"/>  
                             <div class="post-content">
-                                <!-- If Condition (if no-image not display) (JSTL TAGLB) -->
-                                <img src="pic/${post.getImage()}" alt="" class="img-responsive post-image" />
+                                <c:if test="${image != '' || image == null}">
+                                    <!-- If Condition (if no-image not display) (JSTL TAGLB) -->
+                                    <img src="pic/${post.getImage()}" alt="" class="img-responsive post-image" />
+                                </c:if>
                                 <div class="post-container">
                                     <img src="images/users/user-5.jpg" alt="user" class="profile-photo-md pull-left" />
                                     <div class="post-detail">
