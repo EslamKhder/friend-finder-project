@@ -5,5 +5,4 @@ function onSignIn(googleUser)
     // Useful data for your client-side scripts:
     var profile = googleUser.getBasicProfile();
     email.value = profile.getEmail();
-    email.disabled = true;
 }

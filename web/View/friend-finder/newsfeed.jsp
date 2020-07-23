@@ -26,7 +26,6 @@
         ================================================= -->
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet" href="css/mystyle.css" />
         <link rel="stylesheet" href="css/ionicons.min.css" />
         <link rel="stylesheet" href="css/font-awesome.min.css" />
         <link href="css/emoji.css" rel="stylesheet">
@@ -34,7 +33,6 @@
         <link href='https://fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,300italic,400italic,500,500italic,600,600italic,700' rel='stylesheet' type='text/css'>
         <!--Favicon-->
         <link rel="shortcut icon" type="image/png" href="images/fav.png"/>
-        <script src="js/myscript.js"></script>
     </head>
     <style>
         .ion-images
@@ -172,7 +170,7 @@
 
                         <!-- Post Create Box
                                      ================================================= -->
-                        <form action="../../SharePost" method="get">
+                        <form action="../../SharePost" method="POST" enctype="multipart/form-data">
                             <div class="create-post">
                                 <div class="row">
                                     <div class="col-md-7 col-sm-7">
@@ -185,7 +183,7 @@
                                         <div class="tools">
                                             <ul class="publishing-tools list-inline">
                                                 <li><i class="ion-compose"></i></li>
-                                                <li><a href="#"><input type="file" id="file" name="image" class="ion-images" /></a></li>
+                                                <li><a href="#"><input type="file" id="file" name="file" class="ion-images" /></a></li>
                                                 <li><a href="#"><i class="ion-ios-videocam"></i></a></li>
                                                 <li><a href="#"><i class="ion-map"></i></a></li>
                                             </ul>
@@ -226,9 +224,7 @@
                             <c:set var="image" value="${post.getImage()}"/>  
                             <div class="post-content">
                                 <!-- If Condition (if no-image not display) (JSTL TAGLB) -->
-                                <c:if test="${image != ''}">  
-                                    <img src="images/${post.getImage()}" alt="post-image" class="img-responsive post-image" />
-                                </c:if>
+                                <img src="pic/${post.getImage()}" alt="" class="img-responsive post-image" />
                                 <div class="post-container">
                                     <img src="images/users/user-5.jpg" alt="user" class="profile-photo-md pull-left" />
                                     <div class="post-detail">
@@ -325,6 +321,7 @@
                             <c:remove var="Userid" />
                             <c:remove var="Postid" />
                             <c:remove var="usercomment"/>
+                            <c:remove var="post"/>
                         </c:forEach>
 
                         <!-- Newsfeed Common Side Bar Right

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 //Preloader
 var preloader = $('#spinner-wrapper');
