@@ -16,6 +16,7 @@ import org.apache.ibatis.jdbc.ScriptRunner;
  *
  * @author Eng Eslam khder
  */
+
 public class DataBaseConnection implements DatabaseService {
 
     private final String DRIVER = "com.mysql.jdbc.Driver",
@@ -31,7 +32,8 @@ public class DataBaseConnection implements DatabaseService {
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(
                     URL, USERNAME, PASSWORD);
-            String aSQLScriptFilePath ="C:\\Users\\Eng Eslam khder\\Documents\\NetBeansProjects\\friend-project\\resources\\scripttables.sql";
+            
+            String aSQLScriptFilePath ="C:\\Users\\Eng Eslam khder\\Documents\\NetBeansProjects\\friend-project\\src\\java\\resources\\scripttables.sql";
             // Initialize object for ScripRunner
             ScriptRunner sr = new ScriptRunner(connection, false, false);
             // Give the input file to Reader

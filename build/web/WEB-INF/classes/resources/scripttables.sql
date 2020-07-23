@@ -7,7 +7,8 @@ create table `frindfrinder`.log_in
 	Password VARCHAR(225) not null,
 	Job VARCHAR(255) not null,
 	Distance INT not null,
-	PRIMARY KEY (ID)
+	PRIMARY KEY (ID),
+        UNIQUE KEY (Email) 
 );
 create table `frindfrinder`.likepost
 (
