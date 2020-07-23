@@ -12,7 +12,7 @@
         <meta name="robots" content="index, follow" />
         <title>Friend Finder | A Complete Social Network Template</title>
         
-        <meta name="google-signin-client_id" content="998943596311-obsidja2lv2ji22da2lkec0ajg6a6p4i.apps.googleusercontent.com">
+        <meta name="google-signin-client_id" content="998943596311-2inbs5dd60a85o0obhenvjv0qtf2vlc0.apps.googleusercontent.com">
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         
         <!-- Stylesheets
